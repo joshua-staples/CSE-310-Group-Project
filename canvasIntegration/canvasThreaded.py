@@ -1,5 +1,6 @@
 from canvasapi import Canvas
 import threading
+import json
 
 def getCourseAssignments(course, results, lock):
     results[course.id] = {
@@ -34,8 +35,12 @@ def printAssignments(courses):
             print(results[course.id])
 
 def main():
+    tokenJSON = {}
+    with open('accessToken.json') as file:
+        tokenJSON = json.load(file)
+
     API_URL = "https://byui.instructure.com"
-    API_KEY = "10706~g5MeRiNe5b7qFLAyArcWEiszgpQNqOyBEyjJdRNSHgWOMvBJWYEfQOINCDzfqqxI"
+    API_KEY = tokenJSON["token"]
     canvas = Canvas(API_URL, API_KEY)
     myUserID = 167103
 

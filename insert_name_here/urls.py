@@ -23,5 +23,5 @@ import mindfullness
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hw_session_views.home, name='home'),
-    path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),    
+    path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),
 ]

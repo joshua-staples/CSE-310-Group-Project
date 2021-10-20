@@ -3,7 +3,6 @@ import threading
 import json
 
 def getCourseAssignments(course, results, lock):
-    print(course.id)
     results[course.id] = {
         "courseName": '',
         "assignments": []
@@ -12,7 +11,7 @@ def getCourseAssignments(course, results, lock):
     for assignment in assignments:
         with lock:
             results[course.id]['courseName'] = course.name
-            results[course.id]['assignments'].append(assignment.name)
+            results[course.id]['assignments'].append(assignment.due_at)
 
 
 def printAssignments(courses):
@@ -49,6 +48,7 @@ def main():
     print(user)
 
     courses = user.get_courses()
+    print(type(courses))
 
     printAssignments(courses)
 

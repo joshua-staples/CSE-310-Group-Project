@@ -3,6 +3,7 @@ import threading
 import json
 
 def getCourseAssignments(course, results, lock):
+    print(course.id)
     results[course.id] = {
         "courseName": '',
         "assignments": []

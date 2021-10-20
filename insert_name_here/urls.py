@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from hw_session import views as hw_session_views
+from mindfullness import views as mindfullness_views
+import mindfullness
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', hw_session_views.home, name='home'),
+    path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),
 ]

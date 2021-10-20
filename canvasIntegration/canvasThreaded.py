@@ -43,7 +43,7 @@ def main():
     API_URL = "https://byui.instructure.com"
     API_KEY = tokenJSON["token"]
     canvas = Canvas(API_URL, API_KEY)
-    myUserID = 167103
+    myUserID = tokenJSON["user_id"]
 
     user = canvas.get_user(myUserID)
     print(user)

@@ -70,10 +70,6 @@ def main():
     API_URL = "https://byui.instructure.com"
     API_KEY = userInfo["token"]
     canvas = Canvas(API_URL, API_KEY)
-<<<<<<< HEAD
-    myUserID = tokenJSON["user_ID"]
-=======
->>>>>>> 2933f4294a6d3722fbb5e703e18912432b96ecb0
 
     # Get the user from canvas object
     myUserID = userInfo["user_id"]

@@ -1,0 +1,20 @@
+{
+    "quotes":[
+        {"id":1, "quote":"John"},
+        {"id":2, "quote":"Jacob"},
+        {"id":3, "quote":"Jingle"},
+        {"id":4, "quote":"Heimer?"},
+        {"id":5, "quote":"Schmidt"}
+    ],
+    "pictures":[
+        {"id": 1, "link": "up"},
+        {"id": 2, "link": "ya"},
+        {"id": 3, "link": "bum"}
+    ],
+    "links":[
+        {"id": 1, "link": "not"},
+        {"id": 2, "link": "a"},
+        {"id": 3, "link": "real"},
+        {"id": 4, "link": "link"}
+    ]
+    }

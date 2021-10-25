@@ -4,14 +4,14 @@ from canvasapi import Canvas
 import threading
 
 # Create your models here.
-class hw_data(models):
+class Hw_Data(models.Model):
     name = models.CharField(max_length=30)
     due_date = models.DateTimeField()
     course = models.CharField(max_length=30)
-    completed = models.BooleanField()
+    submitted = models.BooleanField()
 
-class session_data(models):
-    goal = models.CharField()
+class Session_Data(models.Model):
+    goal = models.CharField(max_length=30)
     time_limit = models.FloatField()
     selected_assignments = models.JSONField()
     start_time = models.DateTimeField()

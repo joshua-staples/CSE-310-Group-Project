@@ -1,7 +1,5 @@
 from django.db import models
-import json
-from canvasapi import Canvas
-import threading
+
 
 # Create your models here.
 class Hw_Data(models.Model):
@@ -9,6 +7,9 @@ class Hw_Data(models.Model):
     due_date = models.DateTimeField()
     course = models.CharField(max_length=30)
     submitted = models.BooleanField()
+
+    def __str__(self):
+        return self.name
 
 class Session_Data(models.Model):
     goal = models.CharField(max_length=30)

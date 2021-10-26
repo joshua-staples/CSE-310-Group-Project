@@ -1,7 +1,7 @@
 from django.http import request
 from django.shortcuts import render
 from canvasapi import Canvas
-from hw_session.models import *
+from .models import Hw_Data, Session_Data
 import threading
 import json
 import icecream as ic
@@ -66,8 +66,9 @@ def getAllAssignments(courses):
 # gets all hwdata and creates instances of Hw_Data data model class
 #------------------------------------------------------------------------------
 def getHWData():
-    with open('./static/accessToken.json') as file:
+    with open('./hw_session/static/accessToken.json') as file:
         # Get the user info from accessToken file
+        print("loaded it!")
         userInfo = json.load(file)
 
     # Set up the canvas object
@@ -88,13 +89,16 @@ def getHWData():
     results = getAllAssignments(courses)
 
     for course in results:
-        for assignment in course['assignments']:
+        # print('current course id:', course)
+        for assignment in results[course]['assignments']:
+            # print('Current assignment:', assignment)
             hw = Hw_Data(
                 name=assignment['name'], 
                 due_date=assignment['due_date'], 
                 course=assignment['course'], 
                 submitted=assignment['submitted']
                 )
+            print('hw:', hw)
             hw.save()
 
 # Create your views here.

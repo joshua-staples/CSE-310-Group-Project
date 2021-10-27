@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/****************************** Resets *********************************/
+*{
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: black;
+}
+/***********************************************************************/
+
+#session-modal{
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 25px;
+    padding: 0px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(7, 1fr);
+    position: relative;
+    top: 50%;
+    transform: translateY(10%);
+}
+
+h3{
+    margin: 20px 0px 5px 5px;
+}
+
+.input-field, #select-assignments{
+    grid-column: span 2;
+    width: 100%;
+}
+
+.input-field input{
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    background-color: rgb(241, 240, 240);
+    border-radius: 5px;
+}
+
+#select-assignments{
+    grid-row: span 3;
+
+}
+
+#list-container{
+    overflow-x: scroll;
+    height: 225px;
+    background-color: rgb(241, 240, 240);
+    border-radius: 10px;
+}
+
+#assign-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.assignment{
+    display: flex;
+}
+
+.assignment p{
+    display: inline;
+}
+
+.assignment input{
+    margin-left: 10px;
+    transform: scale(1.2);
+}
+
+.assign-name{
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.due-date{
+    margin-right: 25px;
+}
+
+#start-btn{
+    grid-column: 2/3;
+    height: 45%;
+    width: 60%;
+    font-size: 1.2em;
+    justify-self: right;
+    align-self: center;
+    border: none;
+    background-color: lightgray;
+    border-radius: 20px;
+}

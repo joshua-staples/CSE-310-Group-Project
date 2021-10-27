@@ -4,9 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../../static/hw_session_small.css">
+    <title>Session Modal</title>
 </head>
 <body>
-    
+    <div id="session-modal">
+        <div class="input-field">
+            <h3 class="label">Duration</h3>
+            <input id="duration" type="number" placeholder="How long do you have?">
+        </div>
+        <div class="input-field">
+            <h3 class="label">Goal</h3>
+            <input id="goal" type="text" placeholder="What's your goal?">
+        </div>
+        <div class="input-field">
+            <h3 class="label">Break Interval</h3>    
+            <input id="break" type="number" placeholder="How often would you like a break?">
+        </div>
+        <div id="select-assignments">
+            <h3 class="label">Select Assignments</h3>
+            <div id="list-container">
+                <ul id="assign-list">
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox" checked='true'>
+                            <p class="assign-name">Oct 27th Reading</p>
+                            <p class="due-date">10/27</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox" checked='true'>
+                            <p class="assign-name">Quiz 6</p>
+                            <p class="due-date">10/27</p>
+                        </div>
+                    </li>    
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox">
+                            <p class="assign-name">Tasks</p>
+                            <p class="due-date">10/29</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox">
+                            <p class="assign-name">W01 Quiz</p>
+                            <p class="due-date">10/29</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox">
+                            <p class="assign-name">W07 Reflection</p>
+                            <p class="due-date">10/30</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="assignment">
+                            <input type="checkbox">
+                            <p class="assign-name">W07 Reflection</p>
+                            <p class="due-date">10/30</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button id="start-btn">Start ></button>
+    </div>
 </body>
 </html>

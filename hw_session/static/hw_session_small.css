@@ -65,6 +65,7 @@ h3{
 
 .assignment{
     display: flex;
+    align-items: center;
 }
 
 .assignment p{

@@ -4,7 +4,7 @@ from canvasapi import Canvas
 from .models import Hw_Data, Session_Data
 import threading
 import json
-
+import random
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------
@@ -100,8 +100,21 @@ def getHWData():
             print('hw:', hw)
             hw.save()
 
+# Get random image to pass in as context.
+def getImage():
+    #import json file
+    with open('./hw_session/static/images/photos.json') as file:
+        imageDict = json.load(file)
+        img = random.choice(list(imageDict))
+        return imageDict[img]
+
+
 # Create your views here.
 def home(request):
-    getHWData()
-    context = {}
+    hw_data = getHWData()
+    img_data = getImage()
+    context = {
+        "hw_data" : hw_data,
+        "img_data" : img_data
+    }
     return render(request, 'hw_session/index.html', context)

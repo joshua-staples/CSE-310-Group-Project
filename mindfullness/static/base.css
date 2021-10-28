@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+#center-title{
+    font-family: 'Roboto', sans-serif;
+}
+h1{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+h3{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+h4{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+ul{
+    text-align: left;
+}
+p{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(223, 222, 222, 0.692);
+}
+
+.column, #row-1{
+    float: left;
+    width: 33.33%;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column, #row-2 {
+    float:left;
+    width: 50%;
+}
+#footer {
+    font-size: smaller;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 100px;
+    background: 
+    /* color overlay */ 
+      linear-gradient(
+        rgba(143, 143, 143, 0.45), 
+        rgba(117, 153, 219, 0.623)
+      ),
+      /* image to overlay */
+      url();
+  }

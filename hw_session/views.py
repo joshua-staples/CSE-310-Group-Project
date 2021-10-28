@@ -4,7 +4,6 @@ from canvasapi import Canvas
 from .models import Hw_Data, Session_Data
 import threading
 import json
-import icecream as ic
 
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course

@@ -29,9 +29,9 @@
 			<div id = "minutes-holder">
 				<p id = "minutes"></p>
 			</div>
-            <!-- <div id = "seconds-holder">
+            <div id = "seconds-holder">
 				<p id = "seconds"></p>
-			</div> -->
+			</div>
 		</div>
   
         <div id="link-container">
@@ -46,7 +46,7 @@
                     <a href = "some-link">Smort</a>
                 </li>
 				<li class="wellness-link">
-                    <a href = "some-link">Well</a>
+                    <a href = "some-link">Wellness</a>
                 </li>
 			</ul> 
         </div>
@@ -64,15 +64,15 @@
 		var year = document.getElementById("year");
 		year.innerHTML = currentDate.getFullYear();
 		var hours = document.getElementById("hour");
-		hours.innerHTML = currentDate.getHours() % 12 + " :";
+		hours.innerHTML = currentDate.getHours() + " :";
 		var minutes = document.getElementById("minutes");
 		minutes.innerHTML = currentDate.getMinutes();
-		// minutes.innerHTML = currentDate.getMinutes() + " :";
-        // var seconds = document.getElementById("seconds");
-        // seconds.innerHTML = currentDate.getSeconds();
+		minutes.innerHTML = currentDate.getMinutes() + " :";
+        var seconds = document.getElementById("seconds");
+        seconds.innerHTML = currentDate.getSeconds();
 	};
     timeSet();
-	setInterval(timeSet, 60000);
+	setInterval(timeSet, 1000);
 </script>
 </body>
 

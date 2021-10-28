@@ -56,20 +56,43 @@
 	</footer>
 <script>
 	function timeSet(){
+
+		const twoDigit = (number) => {
+			if (number < 10){
+				number = "0" + number
+			}
+			return number
+		}
+
+		const base12 = (hour) => {
+			if (hour % 12 == 0){
+				return 12;
+			}
+			return hour % 12;
+		}
+
 		let currentDate = new Date();
-		var month = document.getElementById("month");
+		let month = document.getElementById("month");
 		month.innerHTML = (currentDate.getMonth() +1) + " /";
-		var day = document.getElementById("day");
+
+		let day = document.getElementById("day");
 		day.innerHTML = currentDate.getDate() + " /";
-		var year = document.getElementById("year");
+
+		let year = document.getElementById("year");
 		year.innerHTML = currentDate.getFullYear();
-		var hours = document.getElementById("hour");
-		hours.innerHTML = currentDate.getHours() + " :";
-		var minutes = document.getElementById("minutes");
-		minutes.innerHTML = currentDate.getMinutes();
-		minutes.innerHTML = currentDate.getMinutes() + " :";
-        var seconds = document.getElementById("seconds");
-        seconds.innerHTML = currentDate.getSeconds();
+
+		let hours = document.getElementById("hour");
+		let hour = currentDate.getHours();
+		hours.innerHTML = base12(hour) + " :";
+
+		let minutes = document.getElementById("minutes");
+		let mins = currentDate.getMinutes();
+		minutes.innerHTML = twoDigit(mins);
+		minutes.innerHTML = twoDigit(mins) + " :";
+
+        let seconds = document.getElementById("seconds");
+		let sec = currentDate.getSeconds();
+        seconds.innerHTML = twoDigit(sec);
 	};
     timeSet();
 	setInterval(timeSet, 1000);

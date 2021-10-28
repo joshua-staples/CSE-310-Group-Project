@@ -103,10 +103,10 @@ body{
                     background-color: white;
                 }
                 &::before{
-                    transform: translateY(33px) rotate(-45deg);
+                    transform: translateY(47px) rotate(-45deg);
                 }
                 &::after{
-                    transform: translateY(-33px) rotate(45deg);
+                    transform: translateY(-47px) rotate(45deg);
                 }
             }
         }

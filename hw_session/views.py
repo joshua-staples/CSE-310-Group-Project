@@ -98,7 +98,7 @@ def getHWData():
                 course=assignment['course'], 
                 submitted=assignment['submitted']
                 )
-            print('hw:', hw.name)
+            print('hw:', hw)
             hw.save()
             tasks.append(hw)
     return tasks

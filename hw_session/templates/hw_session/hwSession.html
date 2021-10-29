@@ -30,8 +30,8 @@
                     <li>
                         <div class="assignment">
                                 <input type="checkbox" checked='true'>
-                                <p class="assign-name">{{ assignment }}</p>
-                                <p class="due-date">10/27</p>
+                                <p class="assign-name">{{ assignment.name }}</p>
+                                <p class="due-date">{{ assignment.due_date }}</p>
                         </div>
                     </li>
                 {% endfor %}

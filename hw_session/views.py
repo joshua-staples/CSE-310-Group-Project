@@ -86,6 +86,7 @@ def getHWData():
 
     # Get all of the upcoming unsubmitted assignments for the user
     results = getAllAssignments(courses)
+    tasks = []
 
     for course in results:
         # print('current course id:', course)
@@ -97,8 +98,10 @@ def getHWData():
                 course=assignment['course'], 
                 submitted=assignment['submitted']
                 )
-            print('hw:', hw)
+            print('hw:', hw.name)
             hw.save()
+            tasks.append(hw)
+    return tasks
 
 # Get random image to pass in as context.
 def getImage():
@@ -117,4 +120,4 @@ def home(request):
         "hw_data" : hw_data,
         "img_data" : img_data
     }
-    return render(request, 'hw_session/index.html', context)
+    return render(request, 'hw_session/hwSession.html', context)

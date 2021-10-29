@@ -64,7 +64,10 @@ def getAllAssignments(courses):
 #------------------------------------------------------------------------------
 # gets all hwdata and creates instances of Hw_Data data model class
 #------------------------------------------------------------------------------
-def getHWData():
+def refreshHWData():
+    # Delete everything to start with so we don't get duplicates
+    Hw_Data.objects.all().delete()
+
     with open('./hw_session/static/accessToken.json') as file:
         # Get the user info from accessToken file
         print("loaded it!")
@@ -111,7 +114,8 @@ def getImage():
 
 # Create your views here.
 def home(request):
-    hw_data = getHWData()
+    refreshHWData()
+    hw_data = Hw_Data.objects.all().order_by('due_date')
     img_data = getImage()
     context = {
         "hw_data" : hw_data,

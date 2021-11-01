@@ -71,48 +71,15 @@
 					<h3 class="label">Select Assignments</h3>
 					<div id="list-container">
 						<ul id="assign-list">
+							{% for assignment in hw_data %}
 							<li>
 								<div class="assignment">
-									<input type="checkbox" checked='true'>
-									<p class="assign-name">Oct 27th Reading</p>
-									<p class="due-date">10/27</p>
+										<input type="checkbox" checked='true'>
+										<p class="assign-name">{{ assignment.name }}</p>
+										<p class="due-date">{{ assignment.due_date }}</p>
 								</div>
 							</li>
-							<li>
-								<div class="assignment">
-									<input type="checkbox" checked='true'>
-									<p class="assign-name">Quiz 6</p>
-									<p class="due-date">10/27</p>
-								</div>
-							</li>    
-							<li>
-								<div class="assignment">
-									<input type="checkbox">
-									<p class="assign-name">Tasks</p>
-									<p class="due-date">10/29</p>
-								</div>
-							</li>
-							<li>
-								<div class="assignment">
-									<input type="checkbox">
-									<p class="assign-name">W01 Quiz</p>
-									<p class="due-date">10/29</p>
-								</div>
-							</li>
-							<li>
-								<div class="assignment">
-									<input type="checkbox">
-									<p class="assign-name">W07 Reflection</p>
-									<p class="due-date">10/30</p>
-								</div>
-							</li>
-							<li>
-								<div class="assignment">
-									<input type="checkbox">
-									<p class="assign-name">W07 Reflection</p>
-									<p class="due-date">10/30</p>
-								</div>
-							</li>
+						{% endfor %}
 						</ul>
 					</div>
 				</div>

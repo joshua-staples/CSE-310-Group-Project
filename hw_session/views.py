@@ -120,4 +120,4 @@ def home(request):
         "hw_data" : hw_data,
         "img_data" : img_data
     }
-    return render(request, 'hw_session/hwSession.html', context)
+    return render(request, 'hw_session/index.html', context)

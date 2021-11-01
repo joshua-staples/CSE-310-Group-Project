@@ -25,14 +25,11 @@ li{
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 100px;
     background: 
-    /* color overlay */ 
       linear-gradient(
         rgba(143, 143, 143, 0.45), 
         rgba(117, 153, 219, 0.623)
       ),
-      /* image to overlay */
       url();
-  } */
+    } */

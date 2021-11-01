@@ -8,9 +8,13 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    background-color:rgba(0, 0, 0, 0.7);
 }
 body{
     text-align: center;
+    background-image: url("images/chris-nguyen-lbmrrNgq2lo-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
 }
 #core-function p{
     margin: 0 auto;

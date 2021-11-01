@@ -2,46 +2,25 @@
 #center-title{
     font-family: 'Roboto', sans-serif;
 }
-h1{
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-}
-h3{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-h4{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-ul{
-    text-align: left;
-}
-p{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
+#grid-container{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 body{
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgba(223, 222, 222, 0.692);
+    text-align: center;
 }
-
-.column, #row-1{
-    float: left;
-    width: 33.33%;
-}
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.column, #row-2 {
-    float:left;
+#core-function p{
+    margin: 0 auto;
+    text-align: left;
     width: 50%;
 }
-#footer {
+li{
+    text-align: left;
+}
+/* #footer {
     font-size: smaller;
     position: absolute;
     bottom: 0;
@@ -56,4 +35,4 @@ body{
       ),
       /* image to overlay */
       url();
-  }
+  } */

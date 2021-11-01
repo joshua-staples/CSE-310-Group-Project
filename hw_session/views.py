@@ -86,6 +86,7 @@ def getHWData():
 
     # Get all of the upcoming unsubmitted assignments for the user
     results = getAllAssignments(courses)
+    tasks = []
 
     for course in results:
         # print('current course id:', course)
@@ -99,6 +100,8 @@ def getHWData():
                 )
             print('hw:', hw)
             hw.save()
+            tasks.append(hw)
+    return tasks
 
 # Get random image to pass in as context.
 def getImage():

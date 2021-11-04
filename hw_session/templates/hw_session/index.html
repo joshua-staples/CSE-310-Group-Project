@@ -83,7 +83,38 @@
 						</ul>
 					</div>
 				</div>
-				<button id="start-btn">Start ></button>
+				<button id="start-btn" onclick="showModal()">Start</div></button>
+					<div id="modal-container" class="hide">
+						<div id="session-modal">
+							<div class="input-field">
+								<h3 class="label">Duration</h3>
+								<input id="duration-hrs" type="number" placeholder="Hours">
+								<input id="duration-mins" type="number" placeholder="Minutes">
+							</div>
+							<div class="input-field">
+								<h3 class="label">Goal</h3>
+								<input id="goal" type="text" placeholder="What's your goal?">
+							</div>
+							<div class="input-field">
+								<h3 class="label">Break Interval</h3>    
+								<input id="break" type="number" placeholder="How often would you like a break? (minutes)">
+							</div>
+							<div id="select-assignments">
+								<h3 class="label">Select Assignments</h3>
+								<div id="list-container">
+									<ul id="assign-list">
+										{% for assignment in hw_data %}
+										<li>
+											<div class="assignment">
+													<input type="checkbox" checked='true'>
+													<p class="assign-name">{{ assignment.name }}</p>
+													<p class="due-date">{{ assignment.due_date }}</p>
+											</div>
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+							</div>
 			</div>
 		</div>
     </main>

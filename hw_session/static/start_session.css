@@ -1,4 +1,146 @@
-body {
-  background-color: black;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/****************************** Resets *********************************/
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
-/*# sourceMappingURL=start_session.css.map */
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/***********************************************************************/
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #001219;
+}
+
+#session-modal {
+  width: 90vw;
+  max-width: 600px;
+  max-height: 635px;
+  background-color: white;
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 0px 15px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: (1fr)[7];
+      grid-template-rows: repeat(7, 1fr);
+  position: relative;
+  -webkit-transform: translateY(10%);
+          transform: translateY(10%);
+}
+
+h3 {
+  margin: 20px 0px 5px 5px;
+  color: #005F73;
+}
+
+.input-field, #select-assignments {
+  grid-column: span 2;
+  width: 100%;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  background-color: #f1f0f0;
+  border-radius: 5px;
+  color: #8F8B92;
+}
+
+.input-field #duration-hrs {
+  width: 49%;
+}
+
+.input-field #duration-mins {
+  width: 49%;
+  position: absolute;
+  right: 0px;
+}
+
+#select-assignments {
+  grid-row: span 3;
+}
+
+#list-container {
+  overflow-y: scroll;
+  height: 225px;
+  background-color: #f1f0f0;
+  border-radius: 10px;
+}
+
+#assign-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.assignment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #005F73;
+}
+
+.assignment p {
+  display: inline;
+}
+
+.assignment input[type="checkbox"] {
+  margin-left: 10px;
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.assignment .assign-name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-left: 10px;
+}
+
+.assignment .due-date {
+  margin-right: 25px;
+  color: #005F73;
+}
+
+#start-btn {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  height: 45%;
+  width: 60%;
+  font-size: 1.2em;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  color: #005F73;
+  border: solid 1px #005F73;
+  border-radius: 20px;
+  cursor: pointer;
+  -webkit-transition: background ease .4s, 
+ color ease .4s;
+  transition: background ease .4s, 
+ color ease .4s;
+}
+
+#start-btn:hover {
+  background: #005F73;
+  color: #f1f0f0;
+}
+/*# sourceMappingURL=hw_session_small.css.map */

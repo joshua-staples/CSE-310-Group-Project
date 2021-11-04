@@ -17,3 +17,20 @@ function hideModal(modalContainer, clickEvent){
         modalContainer.classList.add("hide");
     }
 }
+
+function startSession(){
+    // listen for a click on the start session button
+        // show the running session modal
+        console.log("triggered start session");
+        const startModal = document.getElementById("start-modal");
+        startModal.classList.remove("hide");
+}
+
+function finishSession(){
+    // listen for a click on the finish session button
+        // Hide the running session modal 
+        console.log("triggered finish session");
+        const startModal = document.getElementById("start-modal");
+        startModal.classList.add("hide");
+}
+

@@ -1,16 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-/****************************** Resets *********************************/
-*{
-    box-sizing: border-box;
-}
-
-body{
-    padding: 0;
-    margin: 0;
-}
-/***********************************************************************/
-// Variables
 $black: #001219;
 $gray: #8F8B92;
 $lightgray: rgb(241, 240, 240);
@@ -20,106 +8,69 @@ $accent-teal: #94D2BD;
 $accent-orange: #EE9B00;
 $accent-blue: #005F73;
 
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: $black;
-}
-
-
-#session-modal{
+#start-modal{
+    z-index: 5;
     width: 90vw;
     max-width: 600px;
-    max-height: 635px;
-    background-color: white;
+    height: 635px;
     margin: 0 auto;
     border-radius: 25px;
     padding: 0px 15px;
+    background:white;
+    position: absolute;
+    transform: translate(50%, 10%);
+    right: 50%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(7, 1fr);
-    position: relative;
-    transform: translateY(10%);
+    grid-template-rows: repeat(6, 1fr);
 }
 
-h3{
-    margin: 20px 0px 5px 5px;
-    color: $accent-blue;
-}
-
-.input-field, #select-assignments{
-    grid-column: span 2;
-    width: 100%;
-}
-
-.input-field {
-    position: relative;
-    input{
-        width: 100%;
-        padding: 12px 10px;
-        border: none;
-        background-color: $lightgray;
-        border-radius: 5px;
-        color: $gray;
-    } 
-
-    #duration-hrs{
-        width: 49%;
-    }
-    #duration-mins{
-        width: 49%;
-        position: absolute;
-        right: 0px;
-    }
-}
-
-#select-assignments{
-    grid-row: span 3;
-}
-
-#list-container{
-    overflow-y: scroll;
-    height: 225px;
-    background-color: $lightgray;
-    border-radius: 10px;
-}
-
-#assign-list{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.assignment{
-    display: flex;
-    align-items: center;
-    color: $accent-blue;
-
-    p{
-        display: inline;
-    }
-
-    input[type="checkbox"]{
-        margin-left: 10px;
-        transform: scale(1.3);
-    }
-
-    .assign-name{
-        flex-grow: 1;
-        margin-left: 10px;
-    }
-    
-    .due-date{
-        margin-right: 25px;
+#goal{
+    h2{
+        text-align: center;
+        border-bottom: 2px solid $accent-blue;
+        margin-bottom: 0px;
         color: $accent-blue;
     }
+    p{
+        margin: 20px;
+        // margin-bottom: 40px;
+        font-style: italic;
+    }
 }
 
-#start-btn{
-    grid-column: 2/3;
+#tasks{
+    grid-row: 2/5;
+    h3{
+        text-align: center;
+    }
+}
+
+
+#end-time-container{
+    text-align: center;
+}
+
+#end-time-container{
+    grid-row: 5/6;
+    justify-self: center;
+    align-self: center;
+    h3{
+        border-bottom: 2px solid $accent-blue;
+        width: fit-content;
+        margin: 0 auto;
+    }
+    #end-time{
+        margin: 10px 0px;
+        font-size: 1.2em;
+    }
+}
+
+#finish-btn{
+    grid-row: 6/7;
     height: 45%;
-    width: 60%;
+    width: 50%;
     font-size: 1.2em;
-    justify-self: right;
+    justify-self: center;
     align-self: center;
     color: $accent-blue;
     border: solid 1px $accent-blue;
@@ -133,4 +84,8 @@ h3{
         background: $accent-blue;
         color: $lightgray;
     }
+}
+
+#modal-container{
+    transition: opacity ease .5s;
 }

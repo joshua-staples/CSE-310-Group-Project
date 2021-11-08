@@ -2,58 +2,38 @@
 #center-title{
     font-family: 'Roboto', sans-serif;
 }
-h1{
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-}
-h3{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-h4{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-ul{
-    text-align: left;
-}
-p{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
+#grid-container{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color:rgba(0, 0, 0, 0.7);
 }
 body{
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgba(223, 222, 222, 0.692);
+    text-align: center;
+    background-image: url("images/chris-nguyen-lbmrrNgq2lo-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
 }
-
-.column, #row-1{
-    float: left;
-    width: 33.33%;
-}
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.column, #row-2 {
-    float:left;
+#core-function p{
+    margin: 0 auto;
+    text-align: left;
     width: 50%;
 }
-#footer {
+li{
+    text-align: left;
+}
+/* #footer {
     font-size: smaller;
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 100px;
     background: 
-    /* color overlay */ 
       linear-gradient(
         rgba(143, 143, 143, 0.45), 
         rgba(117, 153, 219, 0.623)
       ),
-      /* image to overlay */
       url();
-  }
+    } */

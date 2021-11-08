@@ -72,14 +72,14 @@ h3 {
   grid-row: span 3;
 }
 
-#list-container {
+.list-container {
   overflow-y: scroll;
   height: 225px;
   background-color: #f1f0f0;
   border-radius: 10px;
 }
 
-#assign-list {
+.assign-list {
   list-style: none;
   padding: 0;
   margin: 0;

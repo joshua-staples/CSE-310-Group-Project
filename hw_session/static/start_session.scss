@@ -1,3 +1,91 @@
-body {
-    background-color: black;
+
+$black: #001219;
+$gray: #8F8B92;
+$lightgray: rgb(241, 240, 240);
+$cream: #E9D8A6;
+$accent-red: #BB3E03;
+$accent-teal: #94D2BD;
+$accent-orange: #EE9B00;
+$accent-blue: #005F73;
+
+#start-modal{
+    z-index: 5;
+    width: 90vw;
+    max-width: 600px;
+    height: 635px;
+    margin: 0 auto;
+    border-radius: 25px;
+    padding: 0px 15px;
+    background:white;
+    position: absolute;
+    transform: translate(50%, 10%);
+    right: 50%;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+}
+
+#goal{
+    h2{
+        text-align: center;
+        border-bottom: 2px solid $accent-blue;
+        margin-bottom: 0px;
+        color: $accent-blue;
+    }
+    p{
+        margin: 20px;
+        // margin-bottom: 40px;
+        font-style: italic;
+    }
+}
+
+#tasks{
+    grid-row: 2/5;
+    h3{
+        text-align: center;
+    }
+}
+
+
+#end-time-container{
+    text-align: center;
+}
+
+#end-time-container{
+    grid-row: 5/6;
+    justify-self: center;
+    align-self: center;
+    h3{
+        border-bottom: 2px solid $accent-blue;
+        width: fit-content;
+        margin: 0 auto;
+    }
+    #end-time{
+        margin: 10px 0px;
+        font-size: 1.2em;
+    }
+}
+
+#finish-btn{
+    grid-row: 6/7;
+    height: 45%;
+    width: 50%;
+    font-size: 1.2em;
+    justify-self: center;
+    align-self: center;
+    color: $accent-blue;
+    border: solid 1px $accent-blue;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 
+        background ease .4s, 
+        color ease .4s;
+
+    &:hover{
+        background: $accent-blue;
+        color: $lightgray;
+    }
+}
+
+#modal-container{
+    transition: opacity ease .5s;
 }

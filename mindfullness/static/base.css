@@ -14,6 +14,7 @@ body{
     background-image: url("images/chris-nguyen-lbmrrNgq2lo-unsplash.jpg");
     background-size: cover;
     background-position: center;
+    /* background-repeat: no-repeat; */
 }
 #core-function p{
     margin: 0 auto;

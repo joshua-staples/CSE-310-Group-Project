@@ -1,12 +1,13 @@
-$diameter: 50px;
-$clr: #0076B6;
-$clr-opacity: .4;
+$diameter: 25px;
+// $clr: #0076B6;
+$clr: white;
+$clr-opacity: .6;
 $duration: 7s;
 $diagonal: 65%;
 $hv: $diagonal + 25%;
 
 .logo-container{
-    background: white;
+    // background: white;
     width: $diameter * 2.82;
     height: $diameter * 2.82;
     display: grid;

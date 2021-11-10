@@ -18,3 +18,4 @@ class Session_Data(models.Model):
     time_limit = models.FloatField()
     selected_assignments = models.JSONField()
     start_time = models.DateTimeField()
+

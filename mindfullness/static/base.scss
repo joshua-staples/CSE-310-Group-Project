@@ -16,7 +16,7 @@ body{
 
 #grid-container{
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     grid-template-columns: 5% 90% 5%;
     justify-items: center;
     align-items: center;

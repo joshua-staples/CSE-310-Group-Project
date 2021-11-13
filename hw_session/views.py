@@ -6,6 +6,7 @@ import threading
 import json
 import random
 from .forms import Sessionform
+from datetime import datetime
 
 
 #------------------------------------------------------------------------------
@@ -70,7 +71,6 @@ def getAllAssignments(courses):
 def getHWData():
     with open('./hw_session/static/accessToken.json') as file:
         # Get the user info from accessToken file
-        print("loaded it!")
         userInfo = json.load(file)
 
     # Set up the canvas object
@@ -92,14 +92,12 @@ def getHWData():
     tasks = []
 
     for course in results:
-        # print('current course id:', course)
         for assignment in results[course]['assignments']:
-            # print('Current assignment:', assignment)
             hw = Hw_Data(
                 name=assignment['name'], 
                 due_date=assignment['due_date'], 
                 course=assignment['course'], 
-                submitted=assignment['submitted']
+                submitted=assignment['submitted'],
                 )
             print('hw:', hw)
             hw.save()
@@ -115,6 +113,26 @@ def getImage():
         return imageDict[img]
 
 
+def refreshHwData():
+    tasks = []
+    hourOfReload = 0
+    curHour = (datetime.now().hour % 12)
+    print("curHour: ", curHour)
+    allHwData = Hw_Data.objects.all()
+    for assignment in allHwData:
+        tasks.append(assignment)
+        dateTimeOfReload = assignment.loaded_at
+        hourOfReload = (dateTimeOfReload.hour + 5 % 12)
+        print("hourOfReload: ", hourOfReload)
+    
+    if curHour == hourOfReload:
+        print("No need to reload")
+        return tasks
+    else:
+        print("Reloaded Data")
+        Hw_Data.objects.all().delete()
+        return getHWData()
+
 # Create your views here.
 def home(request):
     if request.method == "POST":
@@ -122,11 +140,9 @@ def home(request):
         if session_form.is_valid():
             session_form.save()
             print("Session form saved to DB")
-        # print("got a POST +++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         return redirect("/dashboard")
     
-    Hw_Data.objects.all().delete()
-    hw_data = getHWData()
+    hw_data = refreshHwData()
     img_data = getImage()
     context = {
         "hw_data" : hw_data,
@@ -138,27 +154,3 @@ def home(request):
 
 def create_session(request):
     return render(request, 'hw_session/running.html', context={})
-
-
-    
-# def create_session(request):
-#     session_form = Sessionform()
-#     return render(request, context={"session_form" : session_form})
-
-#     context = {}
-#     context['form'] = forms.Sessionform()
-#     return render(request, "index.html", context)
-#     if request.method == "POST":
-# 	    session_form = Sessionform()
-
-# 		if session_form.is_valid():
-# 			session_form.save()
-#             print("Success")
-# 		else:
-# 			print("Form had an issue!")
-		
-		
-# 		return redirect("main:homepage")
-# 	session_form = session_Form()
-# 	movies = Movie.objects.all()
-# 	return render(request=request, template_name="main/home.html", context={'session_form':session_form, 'movies':movies})

@@ -35,6 +35,7 @@ class Hw_Data(models.Model):
     due_date = models.DateTimeField()
     course = models.CharField(max_length=30)
     submitted = models.BooleanField()
+    loaded_at = models.DateTimeField(auto_now_add=True, null=True)
     # hw_session = models.ForeignKey(Session_Data(), on_delete=models.CASCADE, null=True)
 
     def __str__(self):

@@ -8,12 +8,26 @@
 </head>
 <body>
   <header>
+    <a class="back-arrow" href="../../../hw_session/home"></a>
     <h1>Dashboard</h1>
   </header>
-  <main>
-    {% autoescape off %}
-    {{ plot_div }}
-    {% endautoescape %}
+  <main class="dashboard-grid">
+    <div class="graph-widget">
+      <h2>Graph Title</h2>
+      {% autoescape off %}
+      {{ plot_div }}
+      {% endautoescape %}
+    </div>
+    <div class="graph-widget">
+      <h2>Graph Title</h2>
+    </div>
+    <div class="graph-widget">
+      <h2>Graph Title</h2>
+    </div>
+    <div class="graph-widget">
+      <h2>Graph Title</h2>
+    </div>
+
   </main>
 
 </body>

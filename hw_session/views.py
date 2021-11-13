@@ -1,11 +1,11 @@
 from django.http import request
 from django.shortcuts import render, redirect
-from canvasapi import Canvas
 from .models import Hw_Data, Session_Data
+from .forms import Sessionform
+from canvasapi import Canvas
 import threading
 import json
 import random
-from .forms import Sessionform
 from datetime import datetime
 
 

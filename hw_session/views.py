@@ -1,10 +1,13 @@
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from canvasapi import Canvas
 from .models import Hw_Data, Session_Data
 import threading
 import json
 import random
+from .forms import Sessionform
+
+
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------
@@ -114,10 +117,48 @@ def getImage():
 
 # Create your views here.
 def home(request):
+    if request.method == "POST":
+        session_form = Sessionform(request.POST)
+        if session_form.is_valid():
+            session_form.save()
+            print("Session form saved to DB")
+        # print("got a POST +++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        return redirect("/dashboard")
+    
+    Hw_Data.objects.all().delete()
     hw_data = getHWData()
     img_data = getImage()
     context = {
         "hw_data" : hw_data,
-        "img_data" : img_data
+        "img_data" : img_data,
+        "session_form" : Sessionform()
     }
     return render(request, 'hw_session/index.html', context)
+
+
+def create_session(request):
+    return render(request, 'hw_session/running.html', context={})
+
+
+    
+# def create_session(request):
+#     session_form = Sessionform()
+#     return render(request, context={"session_form" : session_form})
+
+#     context = {}
+#     context['form'] = forms.Sessionform()
+#     return render(request, "index.html", context)
+#     if request.method == "POST":
+# 	    session_form = Sessionform()
+
+# 		if session_form.is_valid():
+# 			session_form.save()
+#             print("Success")
+# 		else:
+# 			print("Form had an issue!")
+		
+		
+# 		return redirect("main:homepage")
+# 	session_form = session_Form()
+# 	movies = Movie.objects.all()
+# 	return render(request=request, template_name="main/home.html", context={'session_form':session_form, 'movies':movies})

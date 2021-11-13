@@ -56,36 +56,54 @@
         <button id="start-session-btn" onclick="showModal()"><div id="plus">+</div></button>
 		<div id="modal-container" class="hide">
 			<div id="session-modal">
-				<div class="input-field">
-					<h3 class="label">Duration</h3>
-					<input id="duration-hrs" type="number" placeholder="Hours">
-					<input id="duration-mins" type="number" placeholder="Minutes">
-				</div>
-				<div class="input-field">
-					<h3 class="label">Goal</h3>
-					<input id="goal" type="text" placeholder="What's your goal?">
-				</div>
-				<div class="input-field">
-					<h3 class="label">Break Interval</h3>    
-					<input id="break" type="number" placeholder="How often would you like a break? (minutes)">
-				</div>
-				<div id="select-assignments">
-					<h3 class="label">Select Assignments</h3>
-					<div class="list-container">
-						<ul class="assign-list">
-							{% for assignment in hw_data %}
-							<li>
-								<div class="assignment">
-										<input type="checkbox">
-										<p class="assign-name">{{ assignment.name }}</p>
-										<p class="due-date">{{ assignment.due_date }}</p>
-								</div>
-							</li>
-						{% endfor %}
-						</ul>
+				<form class="session-form" action = "" method = "post">
+					{% csrf_token %}
+					{{session_form}}
+					<p>Hello!?</p>
+					<input type="submit" value="Submit">
+				</form>
+				<!-- <div class="input-field">
+						<h3 class="label">Duration</h3>
+						<input id="duration-hrs" type="number" placeholder="Hours">
+						<input id="duration-mins" type="number" placeholder="Minutes">
 					</div>
-				</div>
-				<button id="start-btn" onclick="startSession()">Start</div></button>
+					<div class="input-field">
+						<h3 class="label">Goal</h3>
+						<input id="goal" type="text" placeholder="What's your goal?">
+					</div>
+					<div class="input-field">
+						<h3 class="label">Break Interval</h3>    
+						<input id="break" type="number" placeholder="How often would you like a break? (minutes)">
+					</div> -->
+					<div id="select-assignments">
+						<h3 class="label">Select Assignments</h3>
+						<div class="list-container">
+							<ul class="assign-list">
+								{% for assignment in hw_data %}
+								<li>
+									<div class="assignment">
+											<input type="checkbox">
+											<p class="assign-name">{{ assignment.name }}</p>
+											<p class="due-date">{{ assignment.due_date }}</p>
+									</div>
+								</li>
+								<!-- If the input is checked then add assignment into selected assignment map and send to running page -->
+								<!-- https://www.shivatutorials.com/2020/01/checkbox-in-django.html -->
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<button id="start-btn" onclick="startSession()">Start</div></button>
+				</form>
+
+				
+				<!-- <form action="/your-name/" method="post">
+					<label for="your_name">Your name: </label>
+					<input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+					<input type="submit" value="OK">
+				</form> -->
+
+				
 			</div>
 			<div id="start-modal" class="hide">
 				<div id="goal">

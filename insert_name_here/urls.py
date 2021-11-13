@@ -18,11 +18,15 @@ from django.urls import path
 
 from hw_session import views as hw_session_views
 from mindfullness import views as mindfullness_views
-import mindfullness
+from Dashboard import views as dashboard_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hw_session_views.home, name='home'),
     path('hw_session/home', hw_session_views.home, name="home"),
     path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),
+    path('runningSession/', hw_session_views.create_session, name="running_session"),
+    path('dashboard/', dashboard_views.dash, name = "dashboard")
+
+
 ]

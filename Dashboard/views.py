@@ -91,7 +91,7 @@ def dash(request):
         'xaxis_title': 'X',
         'yaxis_title': 'Y',
         'height': 420,
-        'width': 560
+        'width': 300
     }
 
     # Getting HTML needed to render the plot.

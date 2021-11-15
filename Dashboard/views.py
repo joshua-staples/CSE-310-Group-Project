@@ -30,6 +30,7 @@ import plotly.graph_objects as go
 import hw_session
 from hw_session.models import Hw_Data, Session_Data
 from datetime import datetime
+import plotly.express as px
 
 
 
@@ -51,24 +52,40 @@ def dash(request):
     hour = current_time[0]
     minutes = current_time[1]
     min_to_hour = round((int(minutes)/60),2)
+    #full time is the current time
     full_time = int(hour) + min_to_hour
     
     allSessionData = Session_Data.objects.all()
     hwData = Hw_Data.objects.all()
     print('-----------------------------------')
     for session in allSessionData:
-        # parsing the session start time string
+        # parsing the session start time string to compare it to the 
         session_day = str(session.start_time.date())
         split_day = session_day.split('-')
         day = split_day[2]
         day = int(day)
         if day == today:
+
+            #parsing to find the time limit you set
             print(full_time)
-            print('---------------------')
-            print(session.time_limit_hours, session.time_limit_mins)
-            print('---------------------')
+            print(f'Full time: {full_time}')
+
+            goal_time = session.time_limit_hours + session.time_limit_mins/60
+            print(f'Goal time: {goal_time}')
+            # this is the start time variable 
             start_time = (int(session.start_time.time().hour)-7) + (int(session.start_time.time().minute)/60) 
-            print(start_time)
+            print(f'Start time: {start_time}')
+            # time spent working is the current time minus the start time
+            time_spent = full_time - start_time
+            # the percentage of your time goal is the actual time spent divided by the goal time
+            goal_completed = round(time_spent/ goal_time,1)
+            print(f'Goal completed {goal_completed}%')
+        else:
+            pass
+            
+        
+    
+        #add current time to start time and compare to goal time
             
 
 
@@ -85,10 +102,8 @@ def dash(request):
     """
     
     # Generating some data for plots.
-    x = [i for i in range(-10, 11)]
+    x = [i for i in range(0, 1)]
     y1 = [3*i for i in x]
-    y2 = [i**2 for i in x]
-    y3 = [10*abs(i) for i in x]
 
     # List of graph objects for figure.
     # Each object will contain on series of data.
@@ -97,18 +112,6 @@ def dash(request):
     # Adding linear plot of y1 vs. x.
     graphs.append(
         go.Scatter(x=x, y=y1, mode='lines', name='Line y1')
-    )
-
-    # Adding scatter plot of y2 vs. x. 
-    # Size of markers defined by y2 value.
-    graphs.append(
-        go.Scatter(x=x, y=y2, mode='markers', opacity=0.8, 
-                   marker_size=y2, name='Scatter y2')
-    )
-
-    # Adding bar plot of y3 vs x.
-    graphs.append(
-        go.Bar(x=x, y=y3, name='Bar y3')
     )
 
     # Setting layout of the figure.

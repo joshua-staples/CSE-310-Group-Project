@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="../../static/hw_session_small.css">
     <link rel="stylesheet" href="../../static/start_session.css">
     <link rel="stylesheet" href="../../static/home.css">
-    <title>Easel | Home</title>
+    <title>Mindful | Home</title>
 
 </head>
 <body >
     <main id="grid-container">
         <div id = "header">
             <img src="" alt="">
-            <h1>Easel</h1>
+            <h1>Mindful</h1>
         </div>
 		<div id="clock">
 			<div id = "month-holder" class="date-info">
@@ -53,16 +53,20 @@
                 </li>
 			</ul> 
         </div>
+
         <button id="start-session-btn" onclick="showModal()"><div id="plus">+</div></button>
-		<div id="modal-container" class="hide">
-			<div id="session-modal">
-				<form class="session-form" action = "" method = "post">
-					{% csrf_token %}
-					{{session_form}}
-					<p>Hello!?</p>
-					<input type="submit" value="Submit">
-				</form>
-				<!-- <div class="input-field">
+
+
+
+		<!-- Modals -->
+		<form class="session-form" action = "" method = "post">
+			{% csrf_token %}
+			{{session_form}}
+			<input type="submit" value="Submit">
+			<div id="modal-container" class="hide">
+				<div id="session-modal">
+					<!-- 
+					<div class="input-field">
 						<h3 class="label">Duration</h3>
 						<input id="duration-hrs" type="number" placeholder="Hours">
 						<input id="duration-mins" type="number" placeholder="Minutes">
@@ -89,22 +93,15 @@
 								</li>
 								<!-- If the input is checked then add assignment into selected assignment map and send to running page -->
 								<!-- https://www.shivatutorials.com/2020/01/checkbox-in-django.html -->
-							{% endfor %}
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
-					<button id="start-btn" onclick="startSession()">Start</div></button>
-				</form>
-
-				
-				<!-- <form action="/your-name/" method="post">
-					<label for="your_name">Your name: </label>
-					<input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-					<input type="submit" value="OK">
-				</form> -->
-
-				
+					<button id="start-btn" onclick="startSession()">Start</button>
+				</div>
 			</div>
+
+			<!-- Second Modal -->
 			<div id="start-modal" class="hide">
 				<div id="goal">
 					<h2>Goal</h2>
@@ -134,7 +131,7 @@
 				</div>
 				<button id="finish-btn" onclick="finishSession()">Finish Session</button>
 			</div>
-		</div>
+		</form>	
     </main>
 	<footer>
 	</footer>

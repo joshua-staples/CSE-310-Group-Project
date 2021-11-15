@@ -104,14 +104,6 @@ def getHWData():
             tasks.append(hw)
     return tasks
 
-# Get random image to pass in as context.
-def getImage():
-    #import json file
-    with open('./hw_session/static/images/photos.json') as file:
-        imageDict = json.load(file)
-        img = random.choice(list(imageDict))
-        return imageDict[img]
-
 
 def refreshHwData():
     tasks = []
@@ -143,10 +135,8 @@ def home(request):
         return redirect("/dashboard")
     
     hw_data = refreshHwData()
-    img_data = getImage()
     context = {
         "hw_data" : hw_data,
-        "img_data" : img_data,
         "session_form" : Sessionform()
     }
     return render(request, 'hw_session/index.html', context)

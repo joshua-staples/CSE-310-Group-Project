@@ -29,25 +29,51 @@ from plotly.offline import plot
 import plotly.graph_objects as go
 import hw_session
 from hw_session.models import Hw_Data, Session_Data
-import datetime
+from datetime import datetime
 
 
 
-time_spent = []
-assignments_total = []
+# upcoming_assignments = []
+assignments_worked_on = []
 assignments_completed = []
-days_spend = {}
-upcoming_assignments = []
-assignments = []
+
+# days_success = {}
+
 
 def dash(request):
+    # parsing the current time 
+    today = str(datetime.now().day)
+    today = int(today)
+    current_hour = str(datetime.now())
+    time_space = current_hour.split(' ')
+    time_time = time_space[1]
+    current_time = time_time.split(':')
+    hour = current_time[0]
+    minutes = current_time[1]
+    min_to_hour = round((int(minutes)/60),2)
+    full_time = int(hour) + min_to_hour
+    
     allSessionData = Session_Data.objects.all()
     hwData = Hw_Data.objects.all()
+    print('-----------------------------------')
     for session in allSessionData:
-        print("-------------------------------------------------------------------------")
-        time_spent.append(session.start_time)
-        assignments_completed.append(session.completed_count)
-        # assignments_completed.append(session.)
+        # parsing the session start time string
+        session_day = str(session.start_time.date())
+        split_day = session_day.split('-')
+        day = split_day[2]
+        day = int(day)
+        if day == today:
+            print(full_time)
+            print('---------------------')
+            print(session.time_limit_hours, session.time_limit_mins)
+            print('---------------------')
+            start_time = (int(session.start_time.time().hour)-7) + (int(session.start_time.time().minute)/60) 
+            print(start_time)
+            
+
+
+        # print(tab_split)
+        
         
 
         # for finding work done today make a comparison between start time values and current date time values to only show 

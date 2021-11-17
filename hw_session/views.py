@@ -133,8 +133,45 @@ def home(request):
             session_form.save()
             print("Session form saved to DB")
         return redirect("/dashboard")
-    
+    #here
+
     hw_data = refreshHwData()
+    for i in hw_data:
+        reformed_datetime = i.due_date
+
+        # reformed_datetime = reformed_datetime.split('T')
+        # # print(reformed_datetime)
+        # time_due_str = reformed_datetime[1]
+        # time_due_str1 = time_due_str.split(':')
+        # hour_due = (int(time_due_str1[0]) + 5) % 12
+        # #because it's weird
+        # if hour_due == 0:
+        #     hours = 12
+        # else:
+        #     hours = hour_due
+        # hour_due_str = str(hours)
+        # print(hour_due_str + ':' + time_due_str1[1])
+        # date_due = reformed_datetime[0]
+
+        reformed_datetime.replace('T',' ')
+        reformed_datetime.replace('z', '')
+        print(reformed_datetime)
+
+        # format = "%Y-%m-%d %H:%M:%S"
+        # dt_object = datetime.strptime(reformed_datetime, format)
+        # print(dt_object)
+        
+        # print(reformed_datetime)
+        #2021-11-22T20:00:00Z
+        # print(datetime.due.strftime('%A %d-%m-%Y, %H:%M:%S'))
+        # reformed_date = reformed_datetime[0]
+        #2021-11-22
+        # reformed_time = reformed_datetime[1]
+        #20:00:00Z
+
+        # print(reformed_date)
+        # print(reformed_time)
+
     context = {
         "hw_data" : hw_data,
         "session_form" : Sessionform()

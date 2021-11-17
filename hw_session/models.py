@@ -1,7 +1,33 @@
 from django.db import models
+import sqlite3
+from django import forms
 
+from django.db.models.deletion import CASCADE
 
+INTERVAL_CHOICES =  [
+    ( .25, "15mins"),
+    ( .5, "30mins"),
+    ( .75, "45mins"),
+    ( 1, "1hr"),
+    ( 1.25, "1hr 15mins"),
+    ( 1.5, "1hr 30mins")
+]
 
+class Session_Data(models.Model):
+    goal = models.CharField(max_length=30)
+    time_limit_hours = models.IntegerField(null=True)
+    time_limit_mins = models.IntegerField(null=True)
+    selected_assignments = models.JSONField(null=True)
+    start_time = models.DateTimeField(auto_now_add=True, null=True)
+    break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=1.25, null=True)
+    goal_accomplished = models.BooleanField(null=True)
+    completed_count = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.goal
+    
+    # break_interval = models.CharField(label='Break Interval:', widget=forms.Select(choices=INTERVAL_CHOICES), null=True)
+    
 
 # Create your models here.
 class Hw_Data(models.Model):
@@ -9,12 +35,9 @@ class Hw_Data(models.Model):
     due_date = models.DateTimeField()
     course = models.CharField(max_length=30)
     submitted = models.BooleanField()
+    loaded_at = models.DateTimeField(auto_now_add=True, null=True)
+    # hw_session = models.ForeignKey(Session_Data(), on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
 
-class Session_Data(models.Model):
-    goal = models.CharField(max_length=30)
-    time_limit = models.FloatField()
-    selected_assignments = models.JSONField()
-    start_time = models.DateTimeField()

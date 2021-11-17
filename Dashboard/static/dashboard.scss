@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+$accent-blue: #005F73;
+
+// Page styling resets
+*{
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: url('./purple_gradient.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+// End resets
+
+
+header {
+    border-bottom: 4px solid white;
+    background-color: rgba($accent-blue, .5);
+    position: relative;
+    
+    h1{
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    .back-arrow{
+        position: absolute;
+        top: 35px;
+        left: 35px;
+        width: 18px;
+        height: 5px;
+        background: white;
+        cursor: pointer;
+        &::before, &::after{
+            position: absolute;
+            content: "";
+            height: 5px;
+            width: 15px;
+            background: white;
+        }
+        &::before{
+            transform: translate(-7px, -4px) rotate(-45deg);
+        }
+        &::after{
+            transform: translate(-7px, 4px) rotate(-135deg);
+        }
+    }
+    margin-bottom: 30px;
+}
+
+.dashboard-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90vw;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.graph-widget{
+    color: white;
+    padding: 25px;
+    grid-column: span 2;
+    width: 100%;
+    height: fit-content;
+    max-height: fit-content;
+    background-color: rgba($accent-blue, .4);
+    border: solid $accent-blue 2px;
+    border-radius: 25px;
+
+    h2{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .plotly-graph-div{
+        border-radius: 25px;
+        margin: 0 auto;
+        height: 50px;
+    }
+}

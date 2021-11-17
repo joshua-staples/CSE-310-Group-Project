@@ -1,10 +1,15 @@
 from django.http import request
-from django.shortcuts import render
-from canvasapi import Canvas
+from django.shortcuts import render, redirect
 from .models import Hw_Data, Session_Data
+from .forms import Sessionform
+from canvasapi import Canvas
 import threading
 import json
 import random
+from datetime import datetime
+import calendar
+
+
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------
@@ -67,7 +72,6 @@ def getAllAssignments(courses):
 def getHWData():
     with open('./hw_session/static/accessToken.json') as file:
         # Get the user info from accessToken file
-        print("loaded it!")
         userInfo = json.load(file)
 
     # Set up the canvas object
@@ -89,35 +93,97 @@ def getHWData():
     tasks = []
 
     for course in results:
-        # print('current course id:', course)
         for assignment in results[course]['assignments']:
-            # print('Current assignment:', assignment)
             hw = Hw_Data(
                 name=assignment['name'], 
                 due_date=assignment['due_date'], 
                 course=assignment['course'], 
-                submitted=assignment['submitted']
+                submitted=assignment['submitted'],
                 )
             print('hw:', hw)
             hw.save()
             tasks.append(hw)
     return tasks
 
-# Get random image to pass in as context.
-def getImage():
-    #import json file
-    with open('./hw_session/static/images/photos.json') as file:
-        imageDict = json.load(file)
-        img = random.choice(list(imageDict))
-        return imageDict[img]
 
+def refreshHwData():
+    tasks = []
+    hourOfReload = 0
+    curHour = (datetime.now().hour % 12)
+    print("curHour: ", curHour)
+    allHwData = Hw_Data.objects.all()
+    for assignment in allHwData:
+        tasks.append(assignment)
+        dateTimeOfReload = assignment.loaded_at
+        hourOfReload = ((dateTimeOfReload.hour + 5) % 12)
+        print("hourOfReload: ", hourOfReload)
+    
+    if curHour == hourOfReload:
+        print("No need to reload")
+        return tasks
+    else:
+        print("Reloaded Data")
+        Hw_Data.objects.all().delete()
+        return getHWData()
 
 # Create your views here.
 def home(request):
-    hw_data = getHWData()
-    img_data = getImage()
+    if request.method == "POST":
+        session_form = Sessionform(request.POST)
+        if session_form.is_valid():
+            session_form.save()
+            print("Session form saved to DB")
+        return redirect("/dashboard")
+    #here
+
+    hw_data = refreshHwData()
+    for i in hw_data:
+        print('---------------------------------------------')
+        #Get the due date of the assignment to manipulate it
+        reformed_datetime = str(i.due_date)
+        assignment = str(i.name)
+        print(assignment)
+
+        #Parse the due date
+        reformed_datetime = reformed_datetime.split(' ')
+        time_due_str = reformed_datetime[1]
+        time_due_str1 = time_due_str.split(':')
+
+        # To get the hour right 
+        hour = (int(time_due_str1[0]) + 5) % 12
+        if hour == 0:
+            hours = 12
+            hour_due_str = str(hours)
+            
+        else:
+            hours = hour
+            hour_due_str = str(hours)
+        # time = datetime()
+        time = (hour_due_str + ':' + time_due_str1[1])
+
+        #Getting the Month and day of the year 
+        date_due = reformed_datetime[0]
+        date_due = date_due.split('-')
+        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), int(date_due[2])
+        datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
+        # print(datetime_dueDate)
+
+        dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
+        days =["Monday", "Tuesday", "Wednesday", "Thursday",
+                            "Friday", "Saturday", "Sunday"]
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        # print(parsed_month)
+        final_month = (months[parsed_month -1])
+        final_day = (days[dayNumber])
+        i.due_date = final_day + ', ' + final_month + ' ' + str(parsed_year) + ' - ' + time
+        print(str(i.due_date))
+
     context = {
         "hw_data" : hw_data,
-        "img_data" : img_data
+        "session_form" : Sessionform()
     }
     return render(request, 'hw_session/index.html', context)
+
+
+def create_session(request):
+    return render(request, 'hw_session/running.html', context={})

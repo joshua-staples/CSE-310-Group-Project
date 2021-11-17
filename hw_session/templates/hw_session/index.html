@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="../../static/hw_session_small.css">
     <link rel="stylesheet" href="../../static/start_session.css">
     <link rel="stylesheet" href="../../static/home.css">
-    <title>Easel | Home</title>
+    <title>Mindful | Home</title>
 
 </head>
 <body >
     <main id="grid-container">
         <div id = "header">
             <img src="" alt="">
-            <h1>Easel</h1>
+            <h1>Mindful</h1>
         </div>
 		<div id="clock">
 			<div id = "month-holder" class="date-info">
@@ -46,47 +46,62 @@
                     <a href = "../../../mindfullness/templates/mindfullness/index.html">Stretch</a>
                 </li>
 				<li class="mindfulness-link">
-                    <a href = "../../../mindfullness/templates/mindfullness/index.html">Smort</a>
+                    <a href = "../dashboard">Dashboard</a>
                 </li>
 				<li class="mindfulness-link">
                     <a href = "/mindfullness/">Mindfulness</a>
                 </li>
 			</ul> 
         </div>
+
         <button id="start-session-btn" onclick="showModal()"><div id="plus">+</div></button>
-		<div id="modal-container" class="hide">
-			<div id="session-modal">
-				<div class="input-field">
-					<h3 class="label">Duration</h3>
-					<input id="duration-hrs" type="number" placeholder="Hours">
-					<input id="duration-mins" type="number" placeholder="Minutes">
-				</div>
-				<div class="input-field">
-					<h3 class="label">Goal</h3>
-					<input id="goal" type="text" placeholder="What's your goal?">
-				</div>
-				<div class="input-field">
-					<h3 class="label">Break Interval</h3>    
-					<input id="break" type="number" placeholder="How often would you like a break? (minutes)">
-				</div>
-				<div id="select-assignments">
-					<h3 class="label">Select Assignments</h3>
-					<div class="list-container">
-						<ul class="assign-list">
-							{% for assignment in hw_data %}
-							<li>
-								<div class="assignment">
-										<input type="checkbox">
-										<p class="assign-name">{{ assignment.name }}</p>
-										<p class="due-date">{{ assignment.due_date }}</p>
-								</div>
-							</li>
-						{% endfor %}
-						</ul>
+
+
+
+		<!-- Modals -->
+		<form class="session-form" action = "" method = "post">
+			{% csrf_token %}
+			{{session_form}}
+			<input type="submit" value="Submit">
+			<div id="modal-container" class="hide">
+				<div id="session-modal">
+					<!-- 
+					<div class="input-field">
+						<h3 class="label">Duration</h3>
+						<input id="duration-hrs" type="number" placeholder="Hours">
+						<input id="duration-mins" type="number" placeholder="Minutes">
 					</div>
+					<div class="input-field">
+						<h3 class="label">Goal</h3>
+						<input id="goal" type="text" placeholder="What's your goal?">
+					</div>
+					<div class="input-field">
+						<h3 class="label">Break Interval</h3>    
+						<input id="break" type="number" placeholder="How often would you like a break? (minutes)">
+					</div> -->
+					<div id="select-assignments">
+						<h3 class="label">Select Assignments</h3>
+						<div class="list-container">
+							<ul class="assign-list">
+								{% for assignment in hw_data %}
+								<li>
+									<div class="assignment">
+											<input type="checkbox">
+											<p class="assign-name">{{ assignment.name }}</p>
+											<p class="due-date">{{ assignment.due_date }}</p>
+									</div>
+								</li>
+								<!-- If the input is checked then add assignment into selected assignment map and send to running page -->
+								<!-- https://www.shivatutorials.com/2020/01/checkbox-in-django.html -->
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<button id="start-btn" onclick="startSession()">Start</button>
 				</div>
-				<button id="start-btn" onclick="startSession()">Start</div></button>
 			</div>
+
+			<!-- Second Modal -->
 			<div id="start-modal" class="hide">
 				<div id="goal">
 					<h2>Goal</h2>
@@ -116,7 +131,7 @@
 				</div>
 				<button id="finish-btn" onclick="finishSession()">Finish Session</button>
 			</div>
-		</div>
+		</form>	
     </main>
 	<footer>
 	</footer>

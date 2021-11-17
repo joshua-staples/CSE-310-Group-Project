@@ -114,7 +114,7 @@ def refreshHwData():
     for assignment in allHwData:
         tasks.append(assignment)
         dateTimeOfReload = assignment.loaded_at
-        hourOfReload = (dateTimeOfReload.hour + 5 % 12)
+        hourOfReload = ((dateTimeOfReload.hour + 5) % 12)
         print("hourOfReload: ", hourOfReload)
     
     if curHour == hourOfReload:

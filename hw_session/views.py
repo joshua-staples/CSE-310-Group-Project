@@ -165,8 +165,6 @@ def home(request):
         date_due = reformed_datetime[0]
         date_due = date_due.split('-')
         parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), int(date_due[2])
-        datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
-        # print(datetime_dueDate)
 
         dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
         days =["Monday", "Tuesday", "Wednesday", "Thursday",
@@ -175,7 +173,7 @@ def home(request):
         # print(parsed_month)
         final_month = (months[parsed_month -1])
         final_day = (days[dayNumber])
-        i.due_date = final_day + ', ' + final_month + ' ' + str(parsed_year) + ' - ' + time
+        i.due_date = 'Due: ' + final_day + ', ' + final_month + ' ' + str(parsed_day) + ' - ' + time
         print(str(i.due_date))
 
     context = {

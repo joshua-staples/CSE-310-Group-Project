@@ -52,14 +52,16 @@ def dash(request):
     hour = current_time[0]
     minutes = current_time[1]
     min_to_hour = round((int(minutes)/60),2)
+
     #full time is the current time
     full_time = int(hour) + min_to_hour
     
+    #Getting all of the data from the model
     allSessionData = Session_Data.objects.all()
     hwData = Hw_Data.objects.all()
     print('-----------------------------------')
     for session in allSessionData:
-        # parsing the session start time string to compare it to the 
+        # parsing the session start time string to compare it to the current time
         session_day = str(session.start_time.date())
         split_day = session_day.split('-')
         day = split_day[2]

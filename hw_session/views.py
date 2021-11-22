@@ -98,7 +98,8 @@ def getHWData():
                 name=assignment['name'], 
                 due_date=assignment['due_date'], 
                 course=assignment['course'], 
-                submitted=assignment['submitted'],
+                is_selected=assignment['is_selected'],
+                is_completed=assignment['is_completed']
                 )
             print('hw:', hw)
             hw.save()

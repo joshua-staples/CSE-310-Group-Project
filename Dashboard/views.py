@@ -20,24 +20,24 @@ days_success = {}
 #time spent today compared to goal
 #assignments completed
 #weekly work
+# parsing the current time 
+today = str(datetime.now().day)
+today = int(today)
+
+current_hour = str(datetime.now().hour)
+time_space = current_hour.split(' ')
+time_time = time_space[1]
+current_time = time_time.split(':')
+hour = current_time[0]
+minutes = current_time[1]
+min_to_hour = round((int(minutes)/60),2)
+# full time is the current time as a float
+full_time = int(hour) + min_to_hour
 
 def dash(request):
-    # parsing the current time 
-    today = str(datetime.now().day)
-    today = int(today)
-    print(today)
-    current_hour = str(datetime.now().hour)
-    print(current_hour)
-
-    # time_space = current_hour.split(' ')
-    # time_time = time_space[1]
-    # current_time = time_time.split(':')
-    # hour = current_time[0]
-    # minutes = current_time[1]
-    # min_to_hour = round((int(minutes)/60),2)
-    #full time is the current time
-    # full_time = int(hour) + min_to_hour
     
+
+
     allSessionData = Session_Data.objects.all()
     hwData = Hw_Data.objects.all()
     # print('-----------------------------------')
@@ -68,6 +68,11 @@ def dash(request):
     # List of graph objects for figure.
     # Each object will contain on series of data.
     graphs = []
+
+    #Bar graph
+    # bar = px.bar(days_success, x='day', y = '')
+
+    
 
     # Adding linear plot of y1 vs. x.
     graphs.append(

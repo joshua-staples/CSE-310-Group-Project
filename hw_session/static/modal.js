@@ -5,6 +5,10 @@ window.addEventListener("load", (event) => {
     });
 })
 
+
+/******************************************************************
+* Modal Logic to hide/show them
+******************************************************************/
 function showModal(){
     let modalContainer = document.getElementById("modal-container");
     modalContainer.classList.remove("hide");
@@ -20,10 +24,14 @@ function hideModal(modalContainer, clickEvent){
     }
 }
 
+/******************************************************************
+* Logic to start a session
+******************************************************************/
 function startSession(){
     // listen for a click on the start session button
         // show the running session modal
         console.log("triggered start session");
+        checkAssignmentList();
         let goal = document.getElementById("id_goal");
         let goalText = goal.value;
         document.getElementById("goal-text").textContent = goalText;
@@ -31,6 +39,14 @@ function startSession(){
         startModal.classList.remove("hide");
 }
 
+function checkAssignmentList(){
+    checkboxList = document.querySelectorAll(".checkBox:checked")
+    console.log(checkboxList)
+}
+
+/******************************************************************
+* Logic to finish the session
+******************************************************************/
 function finishSession(){
     // listen for a click on the finish session button
         // Hide the running session modal 

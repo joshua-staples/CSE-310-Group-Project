@@ -40,8 +40,21 @@ function startSession(){
 }
 
 function checkAssignmentList(){
-    checkboxList = document.querySelectorAll(".checkBox:checked")
-    console.log(checkboxList)
+    let checkboxList = document.querySelectorAll(".checkBox:checked")
+    let ul = document.querySelector(".selected-list")
+    ul.innerHTML = '';
+    checkboxList.forEach(checkBox => {
+        let taskName = checkBox.nextElementSibling;
+        let taskDate = taskName.nextElementSibling;
+        let li = document.createElement('li');
+        li.innerHTML = `
+            <div class="assignment">
+                <input type="checkbox" name="chosenTasks[]">
+                <p class="assign-name">${taskName.textContent}</p>
+                <p class="due-date">${taskDate.textContent}</p>
+            </div>`;
+        ul.appendChild(li);
+    })
 }
 
 /******************************************************************

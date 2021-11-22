@@ -91,7 +91,7 @@ body{
 
 #definition {
     grid-column: 2/3;
-    max-width: 100%;
+    width: 100%;
     background: rgba(hsl(300, 80%, 8%), .7);
     color: white;
     border-radius: 25px;
@@ -130,6 +130,7 @@ body{
     width: 100%;
     color: white;
     border-radius: 25px;
+
     #study-relaxation{
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -141,6 +142,11 @@ body{
             margin: 0;
         }
     }
+}
 
+@media screen and (min-width: 650px){
+    #grid-container{
+        grid-template-columns: 1fr 650px 1fr;
+    }
 }
 

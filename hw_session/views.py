@@ -29,14 +29,15 @@ def getCourseAssignments(course, results, lock):
             "name" : assignment.name,
             "due_date" : assignment.due_at,
             "course" : course.name,
-            "submitted" : assignment.has_submitted_submissions
+            "is_selected" : False,
+            "is_completed" : assignment.has_submitted_submissions
         })
 
     # Any time we modify shared results obj use lock for protection
     with lock:
         results[course.id]['courseName'] = course.name
         # We only want the assignments that haven't been submitted yet
-        results[course.id]['assignments'] = list(filter(lambda a: a['submitted'] == False, assignmentList))
+        results[course.id]['assignments'] = list(filter(lambda a: a['is_completed'] == False, assignmentList))
 
 
 #------------------------------------------------------------------------------
@@ -175,13 +176,13 @@ def home(request):
         # print(datetime_dueDate)
 
         dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
-        days =["Monday", "Tuesday", "Wednesday", "Thursday",
-                            "Friday", "Saturday", "Sunday"]
+        days =["Mon", "Tue", "Wed", "Thu",
+                            "Fri", "Sat", "Sun"]
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         # print(parsed_month)
         final_month = (months[parsed_month -1])
         final_day = (days[dayNumber])
-        i.due_date = final_day + ', ' + final_month + ' ' + str(parsed_year) + ' - ' + time
+        i.due_date = final_day
         print(str(i.due_date))
 
     context = {

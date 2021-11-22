@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseNotAllowed
 from django.shortcuts import render
 from plotly.offline import plot
 import plotly.graph_objects as go
@@ -14,12 +15,11 @@ import plotly.express as px
 assignments_worked_on = []
 assignments_completed = []
 
-# days_success = {}
+days_success = {}
 
 #time spent today compared to goal
 #assignments completed
 #weekly work
-# 
 
 def dash(request):
     # parsing the current time 
@@ -27,8 +27,8 @@ def dash(request):
     today = int(today)
     print(today)
     current_hour = str(datetime.now().hour)
-    # current_hour = datetime()
     print(current_hour)
+
     # time_space = current_hour.split(' ')
     # time_time = time_space[1]
     # current_time = time_time.split(':')
@@ -38,44 +38,21 @@ def dash(request):
     #full time is the current time
     # full_time = int(hour) + min_to_hour
     
-    # allSessionData = Session_Data.objects.all()
-    # hwData = Hw_Data.objects.all()
+    allSessionData = Session_Data.objects.all()
+    hwData = Hw_Data.objects.all()
     # print('-----------------------------------')
-    # for session in allSessionData:
-    #     # parsing the session start time string to compare it to the 
-    #     session_day = str(session.start_time.date())
-    #     split_day = session_day.split('-')
-    #     day = split_day[2]
-    #     day = int(day)
-    #     if day == today:
-
-    #         #parsing to find the time limit you set
-    #         print(full_time)
-    #         print(f'Full time: {full_time}')
-
-    #         goal_time = session.time_limit_hours + session.time_limit_mins/60
-    #         print(f'Goal time: {goal_time}')
-    #         # this is the start time variable 
-    #         start_time = (int(session.start_time.time().hour)-7) + (int(session.start_time.time().minute)/60) 
-    #         print(f'Start time: {start_time}')
-    #         # time spent working is the current time minus the start time
-    #         time_spent = full_time - start_time
-    #         # the percentage of your time goal is the actual time spent divided by the goal time
-    #         goal_completed = round(time_spent/ goal_time,1)
-    #         print(f'Goal completed {goal_completed}%')
-    #     else:
-    #         pass
-            
+    for session in allSessionData:
+        # parsing the session start time string to compare it to the 
+        session_day = str(session.start_time.date())
+        split_day = session_day.split('-')
+        day = split_day[2]
+        day = int(day)
+        if day in range (today - 6, today):
+            print("yes")
+            days_success[day] = session.start_time, hwData.loaded_at
+            print(days_success)
+            # print(day)
         
-    
-        #add current time to start time and compare to goal time
-            
-
-
-        # print(tab_split)
-        
-        
-
         # for finding work done today make a comparison between start time values and current date time values to only show 
         # put a map in for lookup effeciency 
         # Need to add a button to count completed assignments and make a comparison between assignments_total and assignments_completed then print remainder
@@ -99,9 +76,9 @@ def dash(request):
 
     # Setting layout of the figure.
     layout = {
-        'title': 'Title of the figure',
-        'xaxis_title': 'X',
-        'yaxis_title': 'Y'
+        'title': 'Time Goal',
+        'xaxis_title': 'Days',
+        'yaxis_title': 'Goal Completed'
     }
 
     # Getting HTML needed to render the plot.

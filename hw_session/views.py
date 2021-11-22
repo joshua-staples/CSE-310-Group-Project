@@ -124,7 +124,8 @@ def refreshHwData():
     else:
         print("Reloaded Data")
         Hw_Data.objects.all().delete()
-        return getHWData()
+        newData = getHWData()
+        return newData
 
 # Create your views here.
 def home(request):
@@ -134,18 +135,22 @@ def home(request):
             session_form.save()
             print("Session form saved to DB")
         return redirect("/dashboard")
-    #here
 
     hw_data = refreshHwData()
+
     for i in hw_data:
         print('---------------------------------------------')
         #Get the due date of the assignment to manipulate it
         reformed_datetime = str(i.due_date)
+        # print(reformed_datetime)
         assignment = str(i.name)
         print(assignment)
 
         #Parse the due date
-        reformed_datetime = reformed_datetime.split(' ')
+        if ' ' in reformed_datetime:
+            reformed_datetime = reformed_datetime.split(' ')
+        else:
+            reformed_datetime = reformed_datetime.split('T')
         time_due_str = reformed_datetime[1]
         time_due_str1 = time_due_str.split(':')
 
@@ -164,7 +169,7 @@ def home(request):
         #Getting the Month and day of the year 
         date_due = reformed_datetime[0]
         date_due = date_due.split('-')
-        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), int(date_due[2])
+        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), (int(date_due[2])-1)
         datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
         # print(datetime_dueDate)
 

@@ -39,40 +39,57 @@ body{
     grid-template-rows: repeat(7, 1fr);
     position: relative;
     transform: translateY(10%);
+    
+    h3{
+        margin: 20px 0px 5px 5px;
+        color: $accent-blue;
+    }
 }
 
-h3{
-    margin: 20px 0px 5px 5px;
-    color: $accent-blue;
-}
-
-.input-field, #select-assignments{
+#form-input-container{
     grid-column: span 2;
-    width: 100%;
-}
+    grid-row: span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-.input-field {
-    position: relative;
+    label{
+        margin-top: 15px;
+        padding-bottom: 3px;
+        grid-column: span 2;
+        color: $accent-blue;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
     input{
-        width: 100%;
-        padding: 12px 10px;
-        border: none;
+        padding: 8px 5px;
+        grid-column: span 2;
+        display: block;
         background-color: $lightgray;
-        border-radius: 5px;
-        color: $gray;
-    } 
+        border: none;
+    }
 
-    #duration-hrs{
-        width: 49%;
+    select{
+        height: 30px;
+        padding: 8px 5px;
+        display: block;
+        background-color: $lightgray;
+        border: none;
     }
-    #duration-mins{
-        width: 49%;
-        position: absolute;
-        right: 0px;
-    }
+
+    // #id_time_limit_hours{
+    //     grid-column: 1/2;
+    // }
+    // #id_time_limit_mins{
+    //     grid-column: 2/3;
+    // }
 }
+
 
 #select-assignments{
+    margin-top: 10px;
+    grid-column: span 2;
+    width: 100%;
     grid-row: span 3;
 }
 
@@ -116,8 +133,8 @@ h3{
 
 #start-btn{
     grid-column: 2/3;
-    height: 45%;
-    width: 60%;
+    text-align: center;
+    padding: 10px 30px;
     font-size: 1.2em;
     justify-self: right;
     align-self: center;

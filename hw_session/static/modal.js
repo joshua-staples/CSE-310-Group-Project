@@ -11,9 +11,11 @@ function showModal(){
 }
 
 function hideModal(modalContainer, clickEvent){
-    let modal = document.getElementById("session-modal");
-    let clickInsideModal = modal.contains(clickEvent.target);
-    if (!clickInsideModal){
+    let firstModal = document.getElementById("session-modal");
+    let secondModal = document.getElementById("start-modal");
+    let clickInsideFirst = firstModal.contains(clickEvent.target);
+    let clickInsideSecond = secondModal.contains(clickEvent.target);
+    if (!clickInsideFirst && !clickInsideSecond){
         modalContainer.classList.add("hide");
     }
 }
@@ -22,6 +24,9 @@ function startSession(){
     // listen for a click on the start session button
         // show the running session modal
         console.log("triggered start session");
+        let goal = document.getElementById("id_goal");
+        let goalText = goal.value;
+        document.getElementById("goal-text").textContent = goalText;
         const startModal = document.getElementById("start-modal");
         startModal.classList.remove("hide");
 }

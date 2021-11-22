@@ -7,6 +7,7 @@ import threading
 import json
 import random
 from datetime import datetime
+import calendar
 
 
 #------------------------------------------------------------------------------
@@ -123,7 +124,8 @@ def refreshHwData():
     else:
         print("Reloaded Data")
         Hw_Data.objects.all().delete()
-        return getHWData()
+        newData = getHWData()
+        return newData
 
 # Create your views here.
 def home(request):
@@ -133,44 +135,53 @@ def home(request):
             session_form.save()
             print("Session form saved to DB")
         return redirect("/dashboard")
-    #here
 
     hw_data = refreshHwData()
+
     for i in hw_data:
-        reformed_datetime = i.due_date
-
-        # reformed_datetime = reformed_datetime.split('T')
-        # # print(reformed_datetime)
-        # time_due_str = reformed_datetime[1]
-        # time_due_str1 = time_due_str.split(':')
-        # hour_due = (int(time_due_str1[0]) + 5) % 12
-        # #because it's weird
-        # if hour_due == 0:
-        #     hours = 12
-        # else:
-        #     hours = hour_due
-        # hour_due_str = str(hours)
-        # print(hour_due_str + ':' + time_due_str1[1])
-        # date_due = reformed_datetime[0]
-
-        reformed_datetime.replace('T',' ')
-        reformed_datetime.replace('z', '')
-        print(reformed_datetime)
-
-        # format = "%Y-%m-%d %H:%M:%S"
-        # dt_object = datetime.strptime(reformed_datetime, format)
-        # print(dt_object)
-        
+        print('---------------------------------------------')
+        #Get the due date of the assignment to manipulate it
+        reformed_datetime = str(i.due_date)
         # print(reformed_datetime)
-        #2021-11-22T20:00:00Z
-        # print(datetime.due.strftime('%A %d-%m-%Y, %H:%M:%S'))
-        # reformed_date = reformed_datetime[0]
-        #2021-11-22
-        # reformed_time = reformed_datetime[1]
-        #20:00:00Z
+        assignment = str(i.name)
+        print(assignment)
 
-        # print(reformed_date)
-        # print(reformed_time)
+        #Parse the due date
+        if ' ' in reformed_datetime:
+            reformed_datetime = reformed_datetime.split(' ')
+        else:
+            reformed_datetime = reformed_datetime.split('T')
+        time_due_str = reformed_datetime[1]
+        time_due_str1 = time_due_str.split(':')
+
+        # To get the hour right 
+        hour = (int(time_due_str1[0]) + 5) % 12
+        if hour == 0:
+            hours = 12
+            hour_due_str = str(hours)
+            
+        else:
+            hours = hour
+            hour_due_str = str(hours)
+        # time = datetime()
+        time = (hour_due_str + ':' + time_due_str1[1])
+
+        #Getting the Month and day of the year 
+        date_due = reformed_datetime[0]
+        date_due = date_due.split('-')
+        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), (int(date_due[2])-1)
+        datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
+        # print(datetime_dueDate)
+
+        dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
+        days =["Monday", "Tuesday", "Wednesday", "Thursday",
+                            "Friday", "Saturday", "Sunday"]
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        # print(parsed_month)
+        final_month = (months[parsed_month -1])
+        final_day = (days[dayNumber])
+        i.due_date = final_day + ', ' + final_month + ' ' + str(parsed_year) + ' - ' + time
+        print(str(i.due_date))
 
     context = {
         "hw_data" : hw_data,

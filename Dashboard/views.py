@@ -15,11 +15,6 @@ current_mins = str(datetime.now().minute)
 full_time = round(int(current_hour) + (int(current_mins)/60),2)
 
 def dash(request):
-    y1 = {}
-
-    days = []
-    hours = []
-
     fin1 = []
     hr1 = []
 
@@ -34,6 +29,8 @@ def dash(request):
         hr1.append(hr2)
     data_quick['date_day'] = fin1
     data_quick['fin_hour'] = hr1
+    print(data_quick)
+    print(data_quick.columns)
 
     time_df = pd.DataFrame(data_quick, columns = ['id','date_day','fin_hour','break_interval','time_limit_mins','time_limit_hours'])
 

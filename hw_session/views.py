@@ -32,7 +32,7 @@ def getCourseAssignments(course, results, lock):
             "is_selected" : False,
             "is_completed" : assignment.has_submitted_submissions
         })
-
+        #Loaded assignments bug IS COMPLETED may not be a perfect binary indicator of assignments 
     # Any time we modify shared results obj use lock for protection
     with lock:
         results[course.id]['courseName'] = course.name

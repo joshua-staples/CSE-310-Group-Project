@@ -23,7 +23,6 @@ class Session_Data(models.Model):
     break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.75, null=True)
     goal_accomplished = models.BooleanField(null=True)
     completed_count = models.IntegerField(null=True)
-
     def __str__(self):
         return self.goal
     

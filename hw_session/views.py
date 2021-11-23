@@ -1,4 +1,4 @@
-from django.http import request
+from django.http import request, response
 from django.shortcuts import render, redirect
 from .models import Hw_Data, Session_Data
 from .forms import Sessionform
@@ -8,8 +8,9 @@ import json
 import random
 from datetime import datetime
 import calendar
+from django.views.decorators.csrf import csrf_protect 
 
-
+# @csrf_protect
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------
@@ -114,7 +115,9 @@ def refreshHwData():
     curHour = (datetime.now().hour % 12)
     print("curHour: ", curHour)
     allHwData = Hw_Data.objects.all()
+    print("allHWData", allHwData)
     for assignment in allHwData:
+        print("assignment: ", assignment)
         tasks.append(assignment)
         dateTimeOfReload = assignment.loaded_at
         hourOfReload = ((dateTimeOfReload.hour + 5) % 12)
@@ -122,6 +125,7 @@ def refreshHwData():
     
     if curHour == hourOfReload:
         print("No need to reload")
+        print(tasks)
         return tasks
     else:
         print("Reloaded Data")
@@ -138,7 +142,8 @@ def home(request):
             print("Session form saved to DB")
         return redirect("/dashboard")
 
-    hw_data = refreshHwData()
+    # hw_data = refreshHwData()
+    hw_data = getHWData()
 
     for i in hw_data:
         print('---------------------------------------------')
@@ -194,3 +199,12 @@ def home(request):
 
 def create_session(request):
     return render(request, 'hw_session/running.html', context={})
+
+def update_start_time(request):
+    print("Triggered update_start_time")
+
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        print(body['min'])
+        return response.HttpResponse(f"Handled POST")
+    return response.HttpResponse(f"Handled ${request.method}")

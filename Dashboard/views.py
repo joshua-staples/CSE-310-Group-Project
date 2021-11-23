@@ -17,9 +17,33 @@ full_time = round(int(current_hour) + (int(current_mins)/60),2)
 def dash(request):
     fin1 = []
     hr1 = []
+    min1 = []
+    """Full Pass"""
 
+    # data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
+    # for time in data_quick['finish_time']:
+    #     min = time.min
+    #     print(min)
+
+
+    #     fin2 = time.date().day
+    #     hr2 = time.hour - 7
+    #     if hr2 < 0:
+    #         hr2 = 24 + hr2
+    #         fin2 = fin2 - 1
+    #     fin1.append(fin2)
+    #     hr1.append(hr2)
+    # data_quick['date_day'] = fin1
+    # data_quick['fin_hour'] = hr1
+
+
+    """"""
     data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
     for time in data_quick['finish_time']:
+        mins = time.minute
+        mins = mins/60
+        # print(mins)
+        min1.append(mins)
         fin2 = time.date().day
         hr2 = time.hour - 7
         if hr2 < 0:
@@ -29,8 +53,11 @@ def dash(request):
         hr1.append(hr2)
     data_quick['date_day'] = fin1
     data_quick['fin_hour'] = hr1
-    print(data_quick)
-    print(data_quick.columns)
+    data_quick['fin_mins'] = min1
+    float_time = data_quick['fin_hour'] + data_quick['fin_mins']
+    data_quick['float_time'] = float_time
+    print(data_quick['float_time'])
+    # print(data_quick.columns)
 
     time_df = pd.DataFrame(data_quick, columns = ['id','date_day','fin_hour','break_interval','time_limit_mins','time_limit_hours'])
 

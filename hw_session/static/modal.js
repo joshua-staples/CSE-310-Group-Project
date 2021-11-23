@@ -1,4 +1,6 @@
 window.addEventListener("load", (event) => {
+    let startBtn = document.getElementById("start-btn");
+    startBtn.addEventListener("click", sendStartTime);
     let modalContainer = document.getElementById("modal-container")
     modalContainer.addEventListener("click", (clickEvent) => {
         hideModal(modalContainer, clickEvent);
@@ -31,10 +33,12 @@ function startSession(){
     // listen for a click on the start session button
         // show the running session modal
         console.log("triggered start session");
-        checkAssignmentList();
         let goal = document.getElementById("id_goal");
         let goalText = goal.value;
         document.getElementById("goal-text").textContent = goalText;
+
+        checkAssignmentList();
+
         const startModal = document.getElementById("start-modal");
         startModal.classList.remove("hide");
 }
@@ -55,6 +59,26 @@ function checkAssignmentList(){
             </div>`;
         ul.appendChild(li);
     })
+}
+
+async function sendStartTime() {
+    console.log("triggered sendStartTime")
+    let start = new Date()
+    let startTime = {
+        "day" : start.getDate(), 
+        "hour": start.getHours(), 
+        "min": start.getMinutes(),
+        "sec": start.getSeconds()
+    }
+    console.log("Start time:", startTime)
+    let response = await fetch('updateTime/', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(startTime)
+    });
+    console.log(response);
 }
 
 /******************************************************************

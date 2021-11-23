@@ -142,8 +142,8 @@ def home(request):
             print("Session form saved to DB")
         return redirect("/dashboard")
 
-    # hw_data = refreshHwData()
-    hw_data = getHWData()
+    hw_data = refreshHwData()
+    # hw_data = getHWData()
 
     for i in hw_data:
         print('---------------------------------------------')

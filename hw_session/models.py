@@ -14,29 +14,26 @@ INTERVAL_CHOICES =  [
 ]
 
 class Session_Data(models.Model):
-    goal = models.CharField(max_length=30)
+    goal = models.CharField(max_length=100)
     time_limit_hours = models.IntegerField(null=True)
     time_limit_mins = models.IntegerField(null=True)
     selected_assignments = models.JSONField(null=True)
-    start_time = models.DateTimeField(auto_now_add=True, null=True)
-    break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=1.25, null=True)
+    start_time = models.DateTimeField(null=True)
+    finish_time = models.DateTimeField(auto_now_add=True, null=True)
+    break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.75, null=True)
     goal_accomplished = models.BooleanField(null=True)
     completed_count = models.IntegerField(null=True)
-
     def __str__(self):
         return self.goal
     
-    # break_interval = models.CharField(label='Break Interval:', widget=forms.Select(choices=INTERVAL_CHOICES), null=True)
-    
-
 # Create your models here.
 class Hw_Data(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     due_date = models.DateTimeField()
-    course = models.CharField(max_length=30)
-    submitted = models.BooleanField()
+    course = models.CharField(max_length=100)
+    is_selected = models.BooleanField(null=True)
+    is_completed = models.BooleanField(null=True)
     loaded_at = models.DateTimeField(auto_now_add=True, null=True)
-    # hw_session = models.ForeignKey(Session_Data(), on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name

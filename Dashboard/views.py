@@ -1,129 +1,71 @@
-# from django.shortcuts import render
-# from plotly.offline import plot
-# from plotly.graph_objs import Scatter
-# import plotly.graph_objects as go
-
-# def dash(request):
-#     x_data = [0,1,2,3]
-#     y_data = [x**2 for x in x_data]
-
-#     lt = {
-#         'Title': 'Random Graph',
-#         'xaxis_title': 'X',
-#         'yaxis-title:': 'Y',
-#         'height': '70vh',
-#         'width': '50vh'
-#     }
-
-#     plot_div = plot([Scatter(x=x_data, y=y_data,
-#                         mode='lines', name='test',
-#                         opacity=0.8, marker_color='green')],
-#                         layout = lt,
-#                output_type='div')
-
-
-#     return render(request, "Dashboard/page.html", context={'plot_div': plot_div})
-
+from django.http.response import HttpResponseNotAllowed
 from django.shortcuts import render
 from plotly.offline import plot
-import plotly.graph_objects as go
 import hw_session
 from hw_session.models import Hw_Data, Session_Data
 from datetime import datetime
 import plotly.express as px
+import pandas as pd
 
+today = datetime.now().day
 
-
-# upcoming_assignments = []
-assignments_worked_on = []
-assignments_completed = []
-
-# days_success = {}
-
+current_hour = str(datetime.now().hour)
+current_mins = str(datetime.now().minute)
+#full time is the float value of the current hour
+full_time = round(int(current_hour) + (int(current_mins)/60),2)
 
 def dash(request):
-    # parsing the current time 
-    today = str(datetime.now().day)
-    today = int(today)
-    current_hour = str(datetime.now())
-    time_space = current_hour.split(' ')
-    time_time = time_space[1]
-    current_time = time_time.split(':')
-    hour = current_time[0]
-    minutes = current_time[1]
-    min_to_hour = round((int(minutes)/60),2)
-    #full time is the current time
-    full_time = int(hour) + min_to_hour
-    
-    allSessionData = Session_Data.objects.all()
-    hwData = Hw_Data.objects.all()
-    print('-----------------------------------')
-    for session in allSessionData:
-        # parsing the session start time string to compare it to the 
-        session_day = str(session.start_time.date())
-        split_day = session_day.split('-')
-        day = split_day[2]
-        day = int(day)
-        if day == today:
+    fin1 = []
+    hr1 = []
+    min1 = []
+    """Full Pass"""
 
-            #parsing to find the time limit you set
-            print(full_time)
-            print(f'Full time: {full_time}')
-
-            goal_time = session.time_limit_hours + session.time_limit_mins/60
-            print(f'Goal time: {goal_time}')
-            # this is the start time variable 
-            start_time = (int(session.start_time.time().hour)-7) + (int(session.start_time.time().minute)/60) 
-            print(f'Start time: {start_time}')
-            # time spent working is the current time minus the start time
-            time_spent = full_time - start_time
-            # the percentage of your time goal is the actual time spent divided by the goal time
-            goal_completed = round(time_spent/ goal_time,1)
-            print(f'Goal completed {goal_completed}%')
-        else:
-            pass
-            
-        
-    
-        #add current time to start time and compare to goal time
-            
+    # data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
+    # for time in data_quick['finish_time']:
+    #     min = time.min
+    #     print(min)
 
 
-        # print(tab_split)
-        
-        
+    #     fin2 = time.date().day
+    #     hr2 = time.hour - 7
+    #     if hr2 < 0:
+    #         hr2 = 24 + hr2
+    #         fin2 = fin2 - 1
+    #     fin1.append(fin2)
+    #     hr1.append(hr2)
+    # data_quick['date_day'] = fin1
+    # data_quick['fin_hour'] = hr1
 
-        # for finding work done today make a comparison between start time values and current date time values to only show 
-        # put a map in for lookup effeciency 
-        # Need to add a button to count completed assignments and make a comparison between assignments_total and assignments_completed then print remainder
-    """ 
-    View demonstrating how to display a graph object
-    on a web page with Plotly. 
-    """
-    
-    # Generating some data for plots.
-    x = [i for i in range(0, 1)]
-    y1 = [3*i for i in x]
 
-    # List of graph objects for figure.
-    # Each object will contain on series of data.
+    """"""
+    data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
+    for time in data_quick['finish_time']:
+        mins = time.minute
+        mins = mins/60
+        # print(mins)
+        min1.append(mins)
+        fin2 = time.date().day
+        hr2 = time.hour - 7
+        if hr2 < 0:
+            hr2 = 24 + hr2
+            fin2 = fin2 - 1
+        fin1.append(fin2)
+        hr1.append(hr2)
+    data_quick['date_day'] = fin1
+    data_quick['fin_hour'] = hr1
+    data_quick['fin_mins'] = min1
+    float_time = data_quick['fin_hour'] + data_quick['fin_mins']
+    data_quick['float_time'] = float_time
+    print(data_quick['float_time'])
+    # print(data_quick.columns)
+
+    time_df = pd.DataFrame(data_quick, columns = ['id','date_day','fin_hour','break_interval','time_limit_mins','time_limit_hours'])
+
     graphs = []
-
-    # Adding linear plot of y1 vs. x.
-    graphs.append(
-        go.Scatter(x=x, y=y1, mode='lines', name='Line y1')
-    )
-
-    # Setting layout of the figure.
-    layout = {
-        'title': 'Title of the figure',
-        'xaxis_title': 'X',
-        'yaxis_title': 'Y'
-    }
-
-    # Getting HTML needed to render the plot.
-    plot_div = plot({'data': graphs, 'layout': layout}, 
-                    output_type='div')
+    fig = px.bar(time_df, x='date_day', y='fin_hour', title="how thick the got dang square be",
+                    color='fin_hour')
+    plot_div = plot({'data': fig}, 
+                     output_type='div')
 
     return render(request, 'Dashboard/page.html',
-                  context={'plot_div': plot_div})
+                context={'plot_div': plot_div})

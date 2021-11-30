@@ -1,4 +1,4 @@
-from django.http import request
+from django.http import request, response
 from django.shortcuts import render, redirect
 from .models import Hw_Data, Session_Data
 from .forms import Sessionform
@@ -8,8 +8,9 @@ import json
 import random
 from datetime import datetime
 import calendar
+from django.views.decorators.csrf import csrf_protect 
 
-
+# @csrf_protect
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------
@@ -29,14 +30,15 @@ def getCourseAssignments(course, results, lock):
             "name" : assignment.name,
             "due_date" : assignment.due_at,
             "course" : course.name,
-            "submitted" : assignment.has_submitted_submissions
+            "is_selected" : False,
+            "is_completed" : assignment.has_submitted_submissions
         })
-
+        #Loaded assignments bug IS COMPLETED may not be a perfect binary indicator of assignments 
     # Any time we modify shared results obj use lock for protection
     with lock:
         results[course.id]['courseName'] = course.name
         # We only want the assignments that haven't been submitted yet
-        results[course.id]['assignments'] = list(filter(lambda a: a['submitted'] == False, assignmentList))
+        results[course.id]['assignments'] = list(filter(lambda a: a['is_completed'] == False, assignmentList))
 
 
 #------------------------------------------------------------------------------
@@ -98,7 +100,8 @@ def getHWData():
                 name=assignment['name'], 
                 due_date=assignment['due_date'], 
                 course=assignment['course'], 
-                submitted=assignment['submitted'],
+                is_selected=assignment['is_selected'],
+                is_completed=assignment['is_completed']
                 )
             print('hw:', hw)
             hw.save()
@@ -112,7 +115,9 @@ def refreshHwData():
     curHour = (datetime.now().hour % 12)
     print("curHour: ", curHour)
     allHwData = Hw_Data.objects.all()
+    print("allHWData", allHwData)
     for assignment in allHwData:
+        print("assignment: ", assignment)
         tasks.append(assignment)
         dateTimeOfReload = assignment.loaded_at
         hourOfReload = ((dateTimeOfReload.hour + 5) % 12)
@@ -120,11 +125,13 @@ def refreshHwData():
     
     if curHour == hourOfReload:
         print("No need to reload")
+        print(tasks)
         return tasks
     else:
         print("Reloaded Data")
         Hw_Data.objects.all().delete()
-        return getHWData()
+        newData = getHWData()
+        return newData
 
 # Create your views here.
 def home(request):
@@ -134,18 +141,23 @@ def home(request):
             session_form.save()
             print("Session form saved to DB")
         return redirect("/dashboard")
-    #here
 
     hw_data = refreshHwData()
+    # hw_data = getHWData()
+
     for i in hw_data:
         print('---------------------------------------------')
         #Get the due date of the assignment to manipulate it
         reformed_datetime = str(i.due_date)
+        # print(reformed_datetime)
         assignment = str(i.name)
         print(assignment)
 
         #Parse the due date
-        reformed_datetime = reformed_datetime.split(' ')
+        if ' ' in reformed_datetime:
+            reformed_datetime = reformed_datetime.split(' ')
+        else:
+            reformed_datetime = reformed_datetime.split('T')
         time_due_str = reformed_datetime[1]
         time_due_str1 = time_due_str.split(':')
 
@@ -164,18 +176,18 @@ def home(request):
         #Getting the Month and day of the year 
         date_due = reformed_datetime[0]
         date_due = date_due.split('-')
-        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), int(date_due[2])
-        datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
+        parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), (int(date_due[2])-1)
+        # datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
         # print(datetime_dueDate)
 
         dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
-        days =["Monday", "Tuesday", "Wednesday", "Thursday",
-                            "Friday", "Saturday", "Sunday"]
+        days =["Mon", "Tue", "Wed", "Thu",
+                            "Fri", "Sat", "Sun"]
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         # print(parsed_month)
         final_month = (months[parsed_month -1])
         final_day = (days[dayNumber])
-        i.due_date = final_day + ', ' + final_month + ' ' + str(parsed_year) + ' - ' + time
+        i.due_date = final_day
         print(str(i.due_date))
 
     context = {
@@ -187,3 +199,12 @@ def home(request):
 
 def create_session(request):
     return render(request, 'hw_session/running.html', context={})
+
+def update_start_time(request):
+    print("Triggered update_start_time")
+
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        print(body['min'])
+        return response.HttpResponse(f"Handled POST")
+    return response.HttpResponse(f"Handled ${request.method}")

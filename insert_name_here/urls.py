@@ -25,7 +25,6 @@ urlpatterns = [
     path('', hw_session_views.home, name='home'),
     path('hw_session/home', hw_session_views.home, name="home"),
     path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),
-    path('runningSession/', hw_session_views.create_session, name="running_session"),
     path('dashboard/', dashboard_views.dash, name = "dashboard"),
     # path('updateTime/', hw_session_views.update_start_time, name="updateTime")
 

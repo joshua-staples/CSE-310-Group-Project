@@ -95,6 +95,12 @@ body{
         display: inline;
         grid-column: 2/3;
     }
+    #id_start_time{
+        display: none;
+    }
+    label[for='id_start_time']{
+        display: none;
+    }
 }
 
 

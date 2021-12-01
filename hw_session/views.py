@@ -10,6 +10,7 @@ from datetime import datetime
 import calendar
 from django.views.decorators.csrf import csrf_protect 
 
+START_TIME = None 
 # @csrf_protect
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
@@ -199,12 +200,16 @@ def home(request):
 
 def create_session(request):
     return render(request, 'hw_session/running.html', context={})
+# def create_session(request):
+#     return render(request, 'runningSession.html', context={})
 
-def update_start_time(request):
-    print("Triggered update_start_time")
 
-    if request.method == 'POST':
-        body = json.loads(request.body)
-        print(body['min'])
-        return response.HttpResponse(f"Handled POST")
-    return response.HttpResponse(f"Handled ${request.method}")
+# def update_start_time(request):
+#     print("Triggered update_start_time")
+
+#     if request.method == 'POST':
+#         body = json.loads(request.body)
+#         START_TIME = body 
+#         print(body['min'])
+#         return response.HttpResponse(f"Handled POST")
+#     return response.HttpResponse(f"Handled ${request.method}")

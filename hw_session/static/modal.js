@@ -1,6 +1,7 @@
 window.addEventListener("load", (event) => {
     let startBtn = document.getElementById("start-btn");
-    startBtn.addEventListener("click", sendStartTime);
+    // startBtn.addEventListener("click", sendStartTime);
+    startBtn.addEventListener("click", getStartTime);
     let modalContainer = document.getElementById("modal-container")
     modalContainer.addEventListener("click", (clickEvent) => {
         hideModal(modalContainer, clickEvent);
@@ -61,25 +62,40 @@ function checkAssignmentList(){
     })
 }
 
-async function sendStartTime() {
-    console.log("triggered sendStartTime")
-    let start = new Date()
+ 
+function getStartTime(){
+    let start = new Date();
     let startTime = {
         "day" : start.getDate(), 
         "hour": start.getHours(), 
         "min": start.getMinutes(),
         "sec": start.getSeconds()
     }
-    console.log("Start time:", startTime)
-    let response = await fetch('updateTime/', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(startTime)
-    });
-    console.log(response);
+    console.log(startTime)
+    document.getElementById("id_start_time").value = startTime;
 }
+
+// async function sendStartTime() {
+    
+//     console.log("triggered sendStartTime")
+//     let start = new Date()
+//     console.log(start)
+//     let startTime = {
+//         "day" : start.getDate(), 
+//         "hour": start.getHours(), 
+//         "min": start.getMinutes(),
+//         "sec": start.getSeconds()
+//     }
+//     console.log("Start time:", startTime)
+//     let response = await fetch('updateTime/', {
+//         method: 'POST',
+//         headers: {
+//             'content-type': 'application/json'
+//         },
+//         body: JSON.stringify(startTime)
+//     });
+//     console.log(response);
+// }
 
 /******************************************************************
 * Logic to finish the session

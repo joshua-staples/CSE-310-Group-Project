@@ -19,24 +19,27 @@ def dash(request):
     hr1 = []
     min1 = []
     """Full Pass"""
-
+    # finish_time_mins = []
+    # finish_time_hours = []
+    # finish_times = []
     # data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
     # for time in data_quick['finish_time']:
     #     min = time.min
-    #     print(min)
-
-
-    #     fin2 = time.date().day
-    #     hr2 = time.hour - 7
-    #     if hr2 < 0:
-    #         hr2 = 24 + hr2
-    #         fin2 = fin2 - 1
+    #     day = time.date().day
+    #     hour = time.hour - 7
+    #     if hour < 0:
+    #         hour = 24 + hr2
+    #         day = day - 1
     #     fin1.append(fin2)
     #     hr1.append(hr2)
     # data_quick['date_day'] = fin1
     # data_quick['fin_hour'] = hr1
 
 
+    #Parsing the json strt time
+
+    # start = data_quick['start_time']
+    
     """"""
     data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
     for time in data_quick['finish_time']:

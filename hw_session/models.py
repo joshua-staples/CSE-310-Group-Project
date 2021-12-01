@@ -2,6 +2,7 @@ from django.db import models
 import sqlite3
 from django import forms
 
+
 from django.db.models.deletion import CASCADE
 
 INTERVAL_CHOICES =  [
@@ -18,6 +19,7 @@ class Session_Data(models.Model):
     time_limit_hours = models.IntegerField(null=True)
     time_limit_mins = models.IntegerField(null=True)
     selected_assignments = models.JSONField(null=True)
+    # start_time = models.JSONField(null=True)
     start_time = models.DateTimeField(null=True)
     finish_time = models.DateTimeField(auto_now_add=True, null=True)
     break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.75, null=True)

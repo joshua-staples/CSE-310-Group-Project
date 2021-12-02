@@ -1,17 +1,16 @@
-from django.http import request, response
+from django.http import request
+from django.views.decorators.csrf import csrf_protect 
 from django.shortcuts import render, redirect
-from .models import Hw_Data, Session_Data
+from .models import Hw_Data
 from .forms import Sessionform
+
 from canvasapi import Canvas
 import threading
 import json
-import random
 from datetime import datetime
 import calendar
-from django.views.decorators.csrf import csrf_protect 
 
 START_TIME = None 
-# @csrf_protect
 #------------------------------------------------------------------------------
 # Gets all of the assignments for a given course
 #------------------------------------------------------------------------------

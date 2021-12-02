@@ -197,9 +197,6 @@ def home(request):
     }
     return render(request, 'hw_session/index.html', context)
 
-
-def create_session(request):
-    return render(request, 'hw_session/running.html', context={})
 # def create_session(request):
 #     return render(request, 'runningSession.html', context={})
 

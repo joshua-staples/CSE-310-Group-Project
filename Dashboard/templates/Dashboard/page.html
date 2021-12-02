@@ -15,7 +15,13 @@
     <div class="graph-widget">
       <h2>Time Spent Each Day</h2>
       {% autoescape off %}
-      {{ time_spent_graph }}
+      {{ time_spent_each_day }}
+      {% endautoescape %}
+    </div>
+    <div class="graph-widget">
+      <h2>Goals Met</h2>
+      {% autoescape off %}
+      {{ goal_met_each_day }}
       {% endautoescape %}
     </div>
     <!-- <div class="graph-widget">

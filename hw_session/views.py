@@ -5,8 +5,7 @@ from .forms import Sessionform
 from .canvas import Canvas_Cl
 
 import calendar
-
-START_TIME = None 
+from datetime import datetime
 
 # Create your views here.
 def home(request):
@@ -19,15 +18,26 @@ def home(request):
 
     canvas_cl = Canvas_Cl()
     hw_data = canvas_cl.refreshHwData()
-    # hw_data = getHWData()
 
+
+    def get_key(obj):
+        print(obj.due_date)
+        return obj.due_date
+        # return datetime.strptime(str(obj.due_date).split(" ")[0], "%Y-%m-%d")
+
+    # print(hw_data.sort(key = lambda assign: datetime.strptime(str(assign.due_date).split("+")[0], "%Y-%m-%d %I:%M:%S")))
+    print(hw_data.sort(key = get_key))
+    print(hw_data)
+
+    # Possibly move this loop into a method in the Canvas_Cl class
     for i in hw_data:
-        print('---------------------------------------------')
+        # print('---------------------------------------------')
         #Get the due date of the assignment to manipulate it
+        print("???", datetime.strptime(str(i.due_date).split(" ")[0], "%Y-%m-%d"))
         reformed_datetime = str(i.due_date)
-        # print(reformed_datetime)
+        print(reformed_datetime)
         assignment = str(i.name)
-        print(assignment)
+        # print(assignment)
 
         #Parse the due date
         if ' ' in reformed_datetime:
@@ -64,24 +74,10 @@ def home(request):
         final_month = (months[parsed_month -1])
         final_day = (days[dayNumber])
         i.due_date = final_day
-        print(str(i.due_date))
+        # print(str(i.due_date))
 
     context = {
         "hw_data" : hw_data,
         "session_form" : Sessionform()
     }
     return render(request, 'hw_session/index.html', context)
-
-# def create_session(request):
-#     return render(request, 'runningSession.html', context={})
-
-
-# def update_start_time(request):
-#     print("Triggered update_start_time")
-
-#     if request.method == 'POST':
-#         body = json.loads(request.body)
-#         START_TIME = body 
-#         print(body['min'])
-#         return response.HttpResponse(f"Handled POST")
-#     return response.HttpResponse(f"Handled ${request.method}")

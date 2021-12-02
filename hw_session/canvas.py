@@ -114,7 +114,7 @@ class Canvas_Cl():
 
             for course in results:
                 for assignment in results[course]['assignments']:
-                    hw = Hw_Data(
+                    hw =Hw_Data( 
                         name=assignment['name'], 
                         due_date=assignment['due_date'], 
                         course=assignment['course'], 

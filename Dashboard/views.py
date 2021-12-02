@@ -82,7 +82,8 @@ def dash(request):
     session_data["time_goal"] = session_data['time_limit_hours'] + session_data['time_limit_mins']
     session_data["goal_met"] =  session_data['time_spent'] / session_data['time_goal']
 
-    ##GRAPHING THE TIME SPENT EACH DAY
+    #GRAPHING THE TIME SPENT EACH DAY
+
     
     
 

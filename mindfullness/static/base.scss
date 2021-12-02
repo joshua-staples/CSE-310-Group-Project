@@ -152,10 +152,10 @@ body{
             }
             a, a:visited{
                 text-decoration: none;
-                color: #13B7F0;
+                color: #09E2F6;
             }
             a:hover{
-                color: #D962D1;
+                color: #13B7F0;
             }
         }
     }
@@ -175,7 +175,7 @@ body{
     
 }
 
-@media screen and (min-width: 650px){
+@media screen and (min-width: 900px){
     #grid-container{
         grid-template-columns: 1fr 550px 550px 1fr;
         column-gap: 60px;

@@ -1,7 +1,6 @@
 from django.http.response import HttpResponseNotAllowed
 from django.shortcuts import render
 from plotly.offline import plot
-import hw_session
 from hw_session.models import Hw_Data, Session_Data
 from datetime import datetime
 import plotly.express as px
@@ -32,7 +31,7 @@ def dash(request):
 
 
     session_data = pd.DataFrame(list(Session_Data.objects.all().values()))
-    print(session_data.columns)
+    # print(session_data.columns)
 
     for time in session_data['finish_time']:
         fin_min = time.minute
@@ -49,6 +48,10 @@ def dash(request):
         finish_times.append(float_fin_time)
 
     for time in session_data['start_time']:
+        # print(session_data['start_time'])
+        # print(time,'------')
+        # print(type(time),'------------------------')
+
         json_start_time = json.loads(time)
         start_day = json_start_time['day']
         start_hour = json_start_time['hour']
@@ -84,20 +87,26 @@ def dash(request):
 
     #GRAPHING THE TIME SPENT EACH DAY
 
+    # print(session_data['time_goal'])
+    # print(session_data['time_spent'])
+
     
     fig1 = px.bar(session_data, x='date_day', y='time_spent', color='goal_met', labels={'date_day': 'Day', 'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
     time_spent_each_day = plot({'data': fig1}, output_type='div')
 
-
+    # context = {'time_spent_each_day': time_spent_each_day}
 
     # GRAPHING THE PERCENTAGE OF THE GOAL MET
 
-    fig2 = px.scatter(session_data)
-                             
-    
+    fig2 = px.scatter(session_data, x = 'date_day', y = 'time_goal', labels={'date_day': 'Day', 'time_goal': 'Time Goal'})
+    goals_met_each_day = plot({'data':fig2}, output_type='div')
 
-    return render(request, 'Dashboard/page.html',
-                context={'time_spent_graph': time_spent_each_day})
+    # context = {'goals_met_each_day': goals_met_each_day}
+                             
+    context={'time_spent_each_day': time_spent_each_day,
+            'goals_met_each_day': goals_met_each_day}
+
+    return render(request, 'Dashboard/page.html', context)
     
     
     """End Pass"""
@@ -106,6 +115,7 @@ def dash(request):
     # hr1 = []
     # min1 = []
     # data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
+    # # print(data_quick)
     # for time in data_quick['finish_time']:
     #     mins = time.minute
     #     mins = mins/60

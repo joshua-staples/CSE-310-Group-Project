@@ -76,6 +76,33 @@ function getStartTime(){
     }
     console.log(startTime)
     document.getElementById("id_start_time").value = JSON.stringify(startTime);
+    displayEndTime();
+}
+
+function displayEndTime(){
+    let startTime = JSON.parse(document.getElementById("id_start_time").value);
+    let hoursToAdd = document.getElementById("id_time_limit_hours").value;
+    console.log("hrsTo Add", hoursToAdd)
+    let minsToAdd = document.getElementById("id_time_limit_mins").value;
+    
+    
+    let endTimeHrs = startTime['hour'] + hoursToAdd;
+    
+    
+
+    
+    
+    // if (endTimeHrs % 12 > 0){
+    //     endTimeHrs = (endTimeHrs % 12) - 1;
+    // } 
+
+    // let endTimeMins = startTime['min'] + minsToAdd;
+    // if (endTimeMins >= 60){
+    //     endTimeMins %= 60;
+    //     endTimeHrs += 1;
+    // }
+
+    // document.getElementById("end-time").textContent = `${endTimeHrs}:${endTimeMins}`
 }
 
 // async function sendStartTime() {

@@ -8,14 +8,20 @@
 </head>
 <body>
   <header>
-    <a class="back-arrow" href="../../../hw_session/home"></a>
+    <a class="back-arrow" href="/"></a>
     <h1>Dashboard</h1>
   </header>
   <main class="dashboard-grid">
     <div class="graph-widget">
       <h2>Time Spent Each Day</h2>
       {% autoescape off %}
-      {{ time_spent_graph }}
+      {{ time_spent_each_day }}
+      {% endautoescape %}
+    </div>
+    <div class="graph-widget">
+      <h2>Time Spent Each Day</h2>
+      {% autoescape off %}
+      {{ goal_met_each_day }}
       {% endautoescape %}
     </div>
     <!-- <div class="graph-widget">

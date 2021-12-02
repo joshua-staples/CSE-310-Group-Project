@@ -62,7 +62,10 @@ function checkAssignmentList(){
     })
 }
 
- 
+/**********************************************************************
+ * Create a date time object. It will convert that date time object into 
+ * a JSON string so we can use into the database.
+ *********************************************************************/
 function getStartTime(){
     let start = new Date();
     let startTime = {
@@ -72,7 +75,7 @@ function getStartTime(){
         "sec": start.getSeconds()
     }
     console.log(startTime)
-    document.getElementById("id_start_time").value = startTime;
+    document.getElementById("id_start_time").value = JSON.stringify(startTime);
 }
 
 // async function sendStartTime() {

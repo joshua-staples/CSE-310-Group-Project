@@ -8,7 +8,7 @@ class Canvas_Cl():
     def __init__(self):
         pass
     
-    def refreshHwData():
+    def refreshHwData(self):
             tasks = []
             hourOfReload = 0
             curHour = (datetime.now().hour % 12)
@@ -32,7 +32,7 @@ class Canvas_Cl():
                 newData = getHWData()
                 return newData
 
-    def getCourseAssignments(course, results, lock):
+    def getCourseAssignments(self, course, results, lock):
         assignmentList = []
         results[course.id] = {
             "courseName": '',
@@ -65,7 +65,7 @@ class Canvas_Cl():
         # rejoin the main thread. The results object is then returned.
         # A lock is used to protect the results obj from race conditions.
         #------------------------------------------------------------------------------
-        def getAllAssignments(courses):
+        def getAllAssignments(self, courses):
             courseThreads = []
             results = {}
             lock = threading.Lock()

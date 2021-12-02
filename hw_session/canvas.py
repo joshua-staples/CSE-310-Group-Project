@@ -2,6 +2,7 @@ from canvasapi import Canvas
 import threading
 import json
 from datetime import datetime
+from .models import Hw_Data
 
 class Canvas_Cl():
 
@@ -29,10 +30,14 @@ class Canvas_Cl():
             else:
                 print("Reloaded Data")
                 Hw_Data.objects.all().delete()
-                newData = getHWData()
+                newData = self.getHWData()
                 return newData
-
+                
+    #------------------------------------------------------------------------------
+    # Gets all of the assignments for a given course
+    #------------------------------------------------------------------------------
     def getCourseAssignments(self, course, results, lock):
+    
         assignmentList = []
         results[course.id] = {
             "courseName": '',

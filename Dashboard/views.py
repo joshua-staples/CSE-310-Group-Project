@@ -82,16 +82,19 @@ def dash(request):
     session_data["time_goal"] = session_data['time_limit_hours'] + session_data['time_limit_mins']
     session_data["goal_met"] =  session_data['time_spent'] / session_data['time_goal']
 
-    ##GRAPHING THE TIME SPENT EACH DAY
-    
-    # fig1 = px.bar(session_data, x='date_day', y='time_spent', color='goal_met', labels={'date_day': 'Day', 'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
-    # time_spent_each_day = plot({'data': fig1}, 
-    #                  output_type='div')
+    #GRAPHING THE TIME SPENT EACH DAY
 
-    fig2 = px.bar(session_data, x='date_day', y='time_spent', labels={'date_day': 'Day',
-                             'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
+    
+    fig1 = px.bar(session_data, x='date_day', y='time_spent', color='goal_met', labels={'date_day': 'Day', 'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
+    time_spent_each_day = plot({'data': fig1}, output_type='div')
+
+
+
+    # GRAPHING THE PERCENTAGE OF THE GOAL MET
+
+    fig2 = px.scatter(session_data)
                              
-    time_spent_each_day = plot({'data': fig2}, output_type='div')
+    
 
     return render(request, 'Dashboard/page.html',
                 context={'time_spent_graph': time_spent_each_day})

@@ -20,7 +20,7 @@ class Session_Data(models.Model):
     time_limit_mins = models.IntegerField(null=True)
     selected_assignments = models.JSONField(null=True)
     # start_time = models.JSONField(null=True)
-    start_time = models.CharField(max_length=100, null=True)
+    start_time = models.CharField(max_length=200, null=True)
     finish_time = models.DateTimeField(auto_now_add=True, null=True)
     break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.75, null=True)
     goal_accomplished = models.BooleanField(null=True)

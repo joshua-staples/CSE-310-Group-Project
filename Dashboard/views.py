@@ -93,14 +93,10 @@ def dash(request):
     
     
 
-<<<<<<< HEAD
-    # context = {'time_spent_each_day': time_spent_each_day}
-=======
     fig2 = px.bar(session_data, x='date_day', y='time_spent', labels={'date_day': 'Day',
                              'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})                       
     time_spent_each_day = plot({'data': fig2}, output_type='div')
 
->>>>>>> efb674fd03c9e3027b8473155dab42deeba9f282
 
     fig1 = px.scatter(session_data, x='date_day', y='time_spent', color='goal_met', size = 'goal_met',labels={'date_day': 'Day', 'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
     goals_met_each_day = plot({'data': fig1}, output_type='div')
@@ -108,7 +104,6 @@ def dash(request):
     context={'time_spent_each_day': time_spent_each_day,
             'goals_met_each_day': goals_met_each_day}
 
-<<<<<<< HEAD
     fig2 = px.scatter(session_data, x = 'date_day', y = 'time_goal', labels={'date_day': 'Day', 'time_goal': 'Time Goal'})
     goals_met_each_day = plot({'data':fig2}, output_type='div')
 
@@ -116,8 +111,6 @@ def dash(request):
                              
     context={'time_spent_each_day': time_spent_each_day,
             'goals_met_each_day': goals_met_each_day}
-=======
->>>>>>> efb674fd03c9e3027b8473155dab42deeba9f282
 
     return render(request, 'Dashboard/page.html', context)
     

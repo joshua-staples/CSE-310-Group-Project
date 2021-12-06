@@ -74,8 +74,9 @@ function getStartTime(){
         "min": start.getMinutes(),
         "sec": start.getSeconds()
     }
-    console.log(startTime)
+    // console.log(startTime)
     document.getElementById("id_start_time").value = JSON.stringify(startTime);
+    setInterval(() => {handleBreakInterval(startTime)}, 1000);
     displayEndTime();
 }
 
@@ -90,14 +91,17 @@ function displayEndTime(){
 }
 
 function timeArith(baseTime, timeDiff){
+    let baseSec = parseInt(baseTime.sec);
+    let baseMins = parseInt(baseTime.min);
+    let baseHour = parseInt(baseTime.hour);
 
-    let baseMins = baseTime.min;
-    let baseHour = baseTime.hour;
-    let diffMin = timeDiff.min;
-    let diffHour = timeDiff.hour;
+    let diffSec = parseInt(timeDiff.sec);
+    let diffMin = parseInt(timeDiff.min);
+    let diffHour = parseInt(timeDiff.hour);
 
     let endHour = baseHour + diffHour;
     let endMin = baseMins + diffMin;
+    let endSec = baseSec + diffSec;
 
     // Tell if the hour is greater than 12 
     if (endHour > 12){
@@ -109,10 +113,23 @@ function timeArith(baseTime, timeDiff){
     // Tell if we need to increment hour when we add minutes
     if (endMin >= 60){
         endHour += 1;
+        console.log("End min before:", endMin);
         endMin -= 60;
+        console.log("End min after:", endMin);
+        if (endMin < 10){
+            endMin = "0" + endMin;
+        }
+    }
+
+    if (endSec >= 60){
+        endMin += 1;
+        endSec -= 60;
+        if (endSec < 10){
+            endSec = "0" + endSec;
+        }
     }
     
-    return {"hour": endHour, "min": endMin};
+    return {"hour": endHour, "min": endMin, "sec": endSec};
 }
 
 
@@ -127,3 +144,28 @@ function finishSession(){
         startModal.classList.add("hide");
 }
 
+function handleBreakInterval(startTime){
+    let value = document.getElementById("id_break_interval").value;
+
+    let intervalMin = value * 60;
+    let date = new Date();
+    let curTime = {"hour": date.getHours(), "min": date.getMinutes(), "sec": date.getSeconds()};
+    
+    let timeDiff = timeArith(curTime, {"hour": (startTime.hour) * -1, "min": (startTime.min) * -1, "sec": (startTime.sec) * -1});
+    console.log(timeDiff);
+    
+    if (timeDiff.min % intervalMin == 0 && timeDiff.sec == 0){
+        window.open("/mindfullness", "_blank");
+
+        // sleep time expects milliseconds
+        function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+        
+        // Usage!
+        sleep(3000).then(() => {
+            alert("Break time! \n\nWe opened the Mindfulness page to inspire you. Check it out! \n\nClick OK when you're ready to continue your session.")
+        });
+        
+    } 
+}

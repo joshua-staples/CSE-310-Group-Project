@@ -7,16 +7,16 @@ import plotly.express as px
 import pandas as pd
 import json
 
-today = datetime.now().day
 
+# Getting the current time 
+today = datetime.now().day
 current_hour = str(datetime.now().hour)
 current_mins = str(datetime.now().minute)
-#full time is the float value of the current hour
 full_time = round(int(current_hour) + (int(current_mins)/60),2)
 
 def dash(request):
   
-    ## GETTING THE CURRENT TIME AND SETTING UP THE INITIAL DB
+    #Setting up the dataframe we are going to use
 
     finish_time_mins = []
     finish_time_hours = []
@@ -29,9 +29,11 @@ def dash(request):
     start_times = []
 
 
+    
 
     session_data = pd.DataFrame(list(Session_Data.objects.all().values()))
-    # print(session_data.columns)
+
+    #Get the time the hw session ended
 
     for time in session_data['finish_time']:
         fin_min = time.minute
@@ -47,10 +49,9 @@ def dash(request):
         finish_time_days.append(fin_day)
         finish_times.append(float_fin_time)
 
+    #Get the time the hw session started
+
     for time in session_data['start_time']:
-        # print(session_data['start_time'])
-        # print(time,'------')
-        # print(type(time),'------------------------')
 
         json_start_time = json.loads(time)
         start_day = json_start_time['day']
@@ -65,94 +66,50 @@ def dash(request):
         start_time_mins.append(start_min)
         start_times.append(float_start_time)
         
-    #days
+    #Add the comparison data between the start time and finish time to the session_data df
     session_data['date_day'] = finish_time_days
-    #finish time
     session_data['fin_time_hour'] = finish_time_hours
     session_data['fin_time_minutes'] = finish_time_mins
     session_data['finish_times'] = finish_times
-    #start time
     session_data['start_time_hours'] = start_time_hours
     session_data['start_time_minutes'] = start_time_mins
     session_data['start_times'] = start_times
-    #finish time - start time
     session_data['time_spent'] = session_data['finish_times'] - session_data['start_times']
-
-
-
-    # GET GOAL TIMES AND OVERLAY IT
     session_data["time_limit_mins"] = session_data["time_limit_mins"]/60
     session_data["time_goal"] = session_data['time_limit_hours'] + session_data['time_limit_mins']
     session_data["goal_met"] =  (session_data['time_spent'] / session_data['time_goal']) * 100
-
-    #GRAPHING THE TIME SPENT EACH DAY
-
-    graphable = session_data
-    graphable['time_spent'] = round(graphable['time_spent'] * 60)
     
 
-    fig2 = px.bar(graphable, x='date_day', y='time_spent', labels={'date_day': 'Day',
-                             'time_spent': 'Time Spent Working (min)', 'goal_met':'Goal Acheived (%)'})                       
-    time_spent_each_day = plot({'data': fig2}, output_type='div')
+    """Graphing"""
 
-    # context = {'time_spent_each_day': time_spent_each_day}
 
-    # return render(request, 'Dashboard/page.html', context)
+    #Creating another instance of the hw session dataframe for graphing purposes
+    graphable = session_data
+    graphable['time_spent'] = round(graphable['time_spent'] * 60)
+    #Altering some aspects of the new dataframe for graphing purposes 
+    for i in graphable['goal_met']:
+        if i > 100:
+            i = 100
+        else:
+            pass
+    
+    #Creating our bar graph "Time Spent Working in Minutes Each Day"
+    fig1 = px.bar(graphable, x='date_day', y='time_spent',
+                             labels={'date_day': 'Day','time_spent': 'Time Spent Working (min)', 'goal_met':'Goal Acheived (%)'})                       
+    time_spent_each_day = plot({'data': fig1}, output_type='div')
 
-    fig1 = px.scatter(graphable, x='date_day', y='goal_met', size = 'time_spent', labels={'date_day': 'Day', 'goal_met': 'Goal Met (%)', 'time_spent': 'Time Spent Working'})
-
-    goals_met_each_day = plot({'data': fig1}, output_type='div')
+    #Creating our scatter plot "Percentage of Goal Met Each Day" with integrated duration
+    fig2 = px.scatter(graphable, x='date_day', y='goal_met',
+                                 size = 'time_spent',
+                                labels={'date_day': 'Day', 'goal_met': 'Goal Acheived (%)', 'time_spent': 'Time Spent Working (min)'})
+    goals_met_each_day = plot({'data': fig2}, output_type='div')
     
     
 
     context={'time_spent_each_day': time_spent_each_day,
             'goals_met_each_day': goals_met_each_day}
 
-    # fig2 = px.scatter(session_data, x = 'date_day', y = 'time_goal', labels={'date_day': 'Day', 'time_goal': 'Time Goal'})
-    # goals_met_each_day = plot({'data':fig2}, output_type='div')
-
-    # context = {'goals_met_each_day': goals_met_each_day}
-                             
-    # context={'time_spent_each_day': time_spent_each_day,
-    #         'goals_met_each_day': goals_met_each_day}
 
     return render(request, 'Dashboard/page.html', context)
     
     
-    """End Pass"""
-
-    # fin1 = []
-    # hr1 = []
-    # min1 = []
-    # data_quick = pd.DataFrame(list(Session_Data.objects.all().values()))
-    # # print(data_quick)
-    # for time in data_quick['finish_time']:
-    #     mins = time.minute
-    #     mins = mins/60
-    #     # print(mins)
-    #     min1.append(mins)
-    #     fin2 = time.date().day
-    #     hr2 = time.hour - 7
-    #     if hr2 < 0:
-    #         hr2 = 24 + hr2
-    #         fin2 = fin2 - 1
-    #     fin1.append(fin2)
-    #     hr1.append(hr2)
-    # data_quick['date_day'] = fin1
-    # data_quick['fin_hour'] = hr1
-    # data_quick['fin_mins'] = min1
-    # float_time = data_quick['fin_hour'] + data_quick['fin_mins']
-    # data_quick['float_time'] = float_time
-    # # print(data_quick['float_time'])
-    # # print(data_quick.columns)
-
-    # time_df = pd.DataFrame(data_quick, columns = ['id','date_day','fin_hour','break_interval','time_limit_mins','time_limit_hours'])
-
-    # graphs = []
-    # fig = px.bar(time_df, x='date_day', y='fin_hour', title="how thick the got dang square be",
-    #                 color='fin_hour')
-    # plot_div = plot({'data': fig}, 
-    #                  output_type='div')
-
-    # return render(request, 'Dashboard/page.html',
-    #             context={'plot_div': plot_div})

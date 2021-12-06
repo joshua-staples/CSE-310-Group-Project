@@ -11,7 +11,7 @@ def home(request):
         if session_form.is_valid():
             session_form.save()
             print("Session form saved to DB")
-        return redirect("/dashboard")
+        return redirect("/")
 
     canvas_cl = Canvas_Cl()
     hw_data = canvas_cl.refreshHwData()

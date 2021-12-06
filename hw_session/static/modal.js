@@ -85,47 +85,36 @@ function displayEndTime(){
     console.log("hrsTo Add", hoursToAdd)
     let minsToAdd = document.getElementById("id_time_limit_mins").value;
     
-    
-    let endTimeHrs = startTime['hour'] + hoursToAdd;
-    
-    
-
-    
-    
-    // if (endTimeHrs % 12 > 0){
-    //     endTimeHrs = (endTimeHrs % 12) - 1;
-    // } 
-
-    // let endTimeMins = startTime['min'] + minsToAdd;
-    // if (endTimeMins >= 60){
-    //     endTimeMins %= 60;
-    //     endTimeHrs += 1;
-    // }
-
-    // document.getElementById("end-time").textContent = `${endTimeHrs}:${endTimeMins}`
+    let endTimeObj = timeArith(startTime, {"hour": hoursToAdd, "min": minsToAdd});
+    document.getElementById("end-time").innerHTML = endTimeObj.hour + ":" + endTimeObj.min;
 }
 
-// async function sendStartTime() {
+function timeArith(baseTime, timeDiff){
+
+    let baseMins = baseTime.min;
+    let baseHour = baseTime.hour;
+    let diffMin = timeDiff.min;
+    let diffHour = timeDiff.hour;
+
+    let endHour = baseHour + diffHour;
+    let endMin = baseMins + diffMin;
+
+    // Tell if the hour is greater than 12 
+    if (endHour > 12){
+        console.log("End hour before:", endHour)
+        endHour -= 12;
+        console.log("End hour after:", endHour)
+    }
     
-//     console.log("triggered sendStartTime")
-//     let start = new Date()
-//     console.log(start)
-//     let startTime = {
-//         "day" : start.getDate(), 
-//         "hour": start.getHours(), 
-//         "min": start.getMinutes(),
-//         "sec": start.getSeconds()
-//     }
-//     console.log("Start time:", startTime)
-//     let response = await fetch('updateTime/', {
-//         method: 'POST',
-//         headers: {
-//             'content-type': 'application/json'
-//         },
-//         body: JSON.stringify(startTime)
-//     });
-//     console.log(response);
-// }
+    // Tell if we need to increment hour when we add minutes
+    if (endMin >= 60){
+        endHour += 1;
+        endMin -= 60;
+    }
+    
+    return {"hour": endHour, "min": endMin};
+}
+
 
 /******************************************************************
 * Logic to finish the session

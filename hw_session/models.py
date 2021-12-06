@@ -1,8 +1,4 @@
 from django.db import models
-import sqlite3
-from django import forms
-
-
 from django.db.models.deletion import CASCADE
 
 INTERVAL_CHOICES =  [
@@ -15,6 +11,9 @@ INTERVAL_CHOICES =  [
 ]
 
 class Session_Data(models.Model):
+    """A model (database) that contains all of the current homework session data. A homework session begins 
+    when they click start on the home page.
+    """
     goal = models.CharField(max_length=100)
     time_limit_hours = models.IntegerField(null=True)
     time_limit_mins = models.IntegerField(null=True)
@@ -26,10 +25,17 @@ class Session_Data(models.Model):
     goal_accomplished = models.BooleanField(null=True)
     completed_count = models.IntegerField(null=True)
     def __str__(self):
+        """A method to get the goal from the database.
+
+        Returns:
+            String : the goal the user input for their session.
+        """
         return self.goal
     
 # Create your models here.
 class Hw_Data(models.Model):
+    """A model (database) for all of the users homework data populated using the Canvas API.
+    """
     name = models.CharField(max_length=100)
     due_date = models.DateTimeField()
     course = models.CharField(max_length=100)
@@ -38,5 +44,10 @@ class Hw_Data(models.Model):
     loaded_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
+        """A method to get the assignment name from the database.
+
+        Returns:
+            String : the assignment name form the database
+        """
         return self.name
 

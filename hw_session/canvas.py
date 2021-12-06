@@ -8,28 +8,32 @@ import calendar
 from datetime import datetime
 
 class Canvas_Cl():
-
+    """A class for pulling current homework data from Canvas using the CanvasAPI
+    """
     def __init__(self):
         pass
     
     def refreshHwData(self):
+        """Checks to see if the currently pulled homework data needs to be refreshed, checks for a pull
+        in the last hour.
+
+        Returns:
+            list : a list of all of the previously pulled homework tasks from Canvas
+            or
+            list : a list of freshly pulled homework tasks from Canvas
+        """
         tasks = []
         hourOfReload = 0
         curHour = (datetime.now().hour % 12)
-        # print("curHour: ", curHour)
         allHwData = Hw_Data.objects.all()
-        # print("allHWData", allHwData)
 
         for assignment in allHwData:
-            # print("assignment: ", assignment)
             tasks.append(assignment)
             dateTimeOfReload = assignment.loaded_at
             hourOfReload = ((dateTimeOfReload.hour + 5) % 12)
-            # print("hourOfReload: ", hourOfReload)
         
         if curHour == hourOfReload:
             print("\nNo need to reload\n")
-            # print(tasks)
             return tasks
         else:
             print("\nReload Data\n")
@@ -43,6 +47,15 @@ class Canvas_Cl():
     # Gets all of the assignments for a given course
     #------------------------------------------------------------------------------
     def getCourseAssignments(self, course, results, lock):
+        """A helper function for getHWData
+
+
+        Args:
+            course (course object): the current course pulled from the Canvas API
+            results (dict): an empty dictionary that will be populated with the course information and assignment
+            information
+            lock (lock object): threading lock
+        """
     
         assignmentList = []
         results[course.id] = {
@@ -77,6 +90,14 @@ class Canvas_Cl():
     # A lock is used to protect the results obj from race conditions.
     #------------------------------------------------------------------------------
     def getAllAssignments(self, courses):
+        """A helper function for getHWData
+
+        Args:
+            courses (list): a list of Canvas course objects
+
+        Returns:
+            dict : a dictionary of Canvas courses and assignments
+        """
         courseThreads = []
         results = {}
         lock = threading.Lock()
@@ -101,6 +122,11 @@ class Canvas_Cl():
     # gets all hwdata and creates instances of Hw_Data data model class
     #------------------------------------------------------------------------------
     def getHWData(self):
+        """Pulls all of the current weeks assignment data from Canvas.
+
+        Returns:
+            list : a list of assignments
+        """
         with open('./hw_session/static/accessToken.json') as file:
             # Get the user info from accessToken file
             userInfo = json.load(file)
@@ -138,15 +164,14 @@ class Canvas_Cl():
         return tasks
 
     def get_days(self, hw_data):
-        # def get_key(obj):
-        #     print(obj.due_date)
-        #     return obj.due_date
-        #     # return datetime.strptime(str(obj.due_date).split(" ")[0], "%Y-%m-%d")
+        """Formats the date for each assignment so we have String days rather than numbers. 
 
-        # # print(hw_data.sort(key = lambda assign: datetime.strptime(str(assign.due_date).split("+")[0], "%Y-%m-%d %I:%M:%S")))
-        # print(hw_data.sort(key = get_key))
-        # print(hw_data)
-        
+        Args:
+            hw_data (dict): the dictionary of assignments and due dates.
+
+        Returns:
+            dict : the reformatted hw_data dictionary
+        """
         for i in hw_data:
             # print('---------------------------------------------')
             #Get the due date of the assignment to manipulate it

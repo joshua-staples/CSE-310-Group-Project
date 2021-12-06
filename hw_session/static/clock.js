@@ -1,5 +1,8 @@
 function timeSet(){
-
+    /*
+    creates a clock that updates every half a second. 
+    */
+   
     const twoDigit = (number) => {
         if (number < 10){
             number = "0" + number
@@ -38,4 +41,4 @@ function timeSet(){
     seconds.innerHTML = twoDigit(sec);
 };
 timeSet();
-setInterval(timeSet, 1000);
+setInterval(timeSet, 500);

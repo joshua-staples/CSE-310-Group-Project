@@ -6,6 +6,14 @@ from .canvas import Canvas_Cl
 
 # Create your views here.
 def home(request):
+    """A view for the home page of our website.
+
+    Args:
+        request (HTTPRequest): the HTTP request sent by the server
+
+    Returns:
+        HTTPResponse : the HTTP Response that directs the server to the correct path
+    """
     if request.method == "POST":
         session_form = Sessionform(request.POST)
         if session_form.is_valid():

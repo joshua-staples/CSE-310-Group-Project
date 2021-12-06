@@ -83,34 +83,38 @@ def dash(request):
     # GET GOAL TIMES AND OVERLAY IT
     session_data["time_limit_mins"] = session_data["time_limit_mins"]/60
     session_data["time_goal"] = session_data['time_limit_hours'] + session_data['time_limit_mins']
-    session_data["goal_met"] =  session_data['time_spent'] / session_data['time_goal']
+    session_data["goal_met"] =  (session_data['time_spent'] / session_data['time_goal']) * 100
 
     #GRAPHING THE TIME SPENT EACH DAY
 
-    # print(session_data['time_goal'])
-    # print(session_data['time_spent'])
-
-    
+    graphable = session_data
+    graphable['time_spent'] = round(graphable['time_spent'] * 60)
     
 
-    fig2 = px.bar(session_data, x='date_day', y='time_spent', labels={'date_day': 'Day',
-                             'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})                       
+    fig2 = px.bar(graphable, x='date_day', y='time_spent', labels={'date_day': 'Day',
+                             'time_spent': 'Time Spent Working (min)', 'goal_met':'Goal Acheived (%)'})                       
     time_spent_each_day = plot({'data': fig2}, output_type='div')
 
+    # context = {'time_spent_each_day': time_spent_each_day}
 
-    fig1 = px.scatter(session_data, x='date_day', y='time_spent', color='goal_met', size = 'goal_met',labels={'date_day': 'Day', 'time_spent': 'Time Spent Working (hrs)', 'goal_met':'Goal Acheived (%)'})
+    # return render(request, 'Dashboard/page.html', context)
+
+    fig1 = px.scatter(graphable, x='date_day', y='goal_met', size = 'time_spent', labels={'date_day': 'Day', 'goal_met': 'Goal Met (%)', 'time_spent': 'Time Spent Working'})
+
     goals_met_each_day = plot({'data': fig1}, output_type='div')
+    
+    
 
     context={'time_spent_each_day': time_spent_each_day,
             'goals_met_each_day': goals_met_each_day}
 
-    fig2 = px.scatter(session_data, x = 'date_day', y = 'time_goal', labels={'date_day': 'Day', 'time_goal': 'Time Goal'})
-    goals_met_each_day = plot({'data':fig2}, output_type='div')
+    # fig2 = px.scatter(session_data, x = 'date_day', y = 'time_goal', labels={'date_day': 'Day', 'time_goal': 'Time Goal'})
+    # goals_met_each_day = plot({'data':fig2}, output_type='div')
 
     # context = {'goals_met_each_day': goals_met_each_day}
                              
-    context={'time_spent_each_day': time_spent_each_day,
-            'goals_met_each_day': goals_met_each_day}
+    # context={'time_spent_each_day': time_spent_each_day,
+    #         'goals_met_each_day': goals_met_each_day}
 
     return render(request, 'Dashboard/page.html', context)
     

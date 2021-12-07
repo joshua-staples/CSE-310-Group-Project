@@ -54,12 +54,14 @@ function checkAssignmentList(){
         let li = document.createElement('li');
         li.innerHTML = `
             <div class="assignment">
-                <input type="checkbox" name="chosenTasks[]">
+                <input class="chosenCB" type="checkbox" name="chosenTasks[]">
                 <p class="assign-name">${taskName.textContent}</p>
                 <p class="due-date">${taskDate.textContent}</p>
             </div>`;
         ul.appendChild(li);
     })
+
+    document.getElementById("id_selected_assignment_count").value = checkboxList.length;
 }
 
 /**********************************************************************
@@ -74,7 +76,6 @@ function getStartTime(){
         "min": start.getMinutes(),
         "sec": start.getSeconds()
     }
-    // console.log(startTime)
     document.getElementById("id_start_time").value = JSON.stringify(startTime);
     setInterval(() => {handleBreakInterval(startTime)}, 1000);
     displayEndTime();
@@ -140,6 +141,11 @@ function finishSession(){
     // listen for a click on the finish session button
         // Hide the running session modal 
         console.log("triggered finish session");
+
+        let finishedList = document.querySelectorAll(".chosenCB:checked");
+        document.getElementById("id_completed_count").value = finishedList.length;
+
+
         const startModal = document.getElementById("start-modal");
         startModal.classList.add("hide");
 }
@@ -168,4 +174,8 @@ function handleBreakInterval(startTime){
         });
         
     } 
+}
+
+function takeABreak(){
+    alert("Enjoy your break! \n\nClick ok when you are ready to get started");
 }

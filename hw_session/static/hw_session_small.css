@@ -101,11 +101,15 @@ body {
   grid-column: 2/3;
 }
 
-#form-input-container #id_start_time {
+#form-input-container #id_start_time,
+#form-input-container #id_selected_assignment_count,
+#form-input-container #id_completed_count {
   display: none;
 }
 
-#form-input-container label[for='id_start_time'] {
+#form-input-container label[for='id_start_time'],
+#form-input-container label[for='id_selected_assignment_count'],
+#form-input-container label[for='id_completed_count'] {
   display: none;
 }
 

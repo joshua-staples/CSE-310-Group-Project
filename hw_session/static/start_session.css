@@ -33,6 +33,7 @@
 #goal p {
   margin: 20px;
   font-style: italic;
+  text-align: center;
 }
 
 #tasks {
@@ -54,9 +55,9 @@
   -ms-grid-row: 6;
   -ms-grid-row-span: 1;
   grid-row: 6/7;
-  height: 45%;
-  width: 50%;
+  padding: 8px 20px;
   font-size: 1.2em;
+  max-width: 90%;
   -ms-grid-column-align: center;
       justify-self: center;
   -ms-flex-item-align: center;
@@ -112,8 +113,8 @@
   -ms-grid-row: 6;
   -ms-grid-row-span: 1;
   grid-row: 6/7;
-  height: 45%;
-  width: 50%;
+  padding: 8px 30px;
+  max-width: 90%;
   font-size: 1.2em;
   -ms-grid-column-align: center;
       justify-self: center;

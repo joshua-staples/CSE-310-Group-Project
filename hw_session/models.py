@@ -18,12 +18,14 @@ class Session_Data(models.Model):
     goal = models.CharField(max_length=100)
     time_limit_hours = models.IntegerField(null=True)
     time_limit_mins = models.IntegerField(null=True)
-    selected_assignments = models.JSONField(null=True)
-    # start_time = models.JSONField(null=True)
+    # selected_assignments = models.JSONField(null=True)
     start_time = models.CharField(max_length=200, null=True)
-    finish_time = models.DateTimeField(auto_now_add=True, null=True)
+    # finish_time = models.CharField(max_length = 200, null =True)
+    # finish_time = models.DateTimeField(auto_now_add=True, null=True)
+    finish_time = models.DateTimeField(null=True)
     break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.05, null=True)
     goal_accomplished = models.BooleanField(null=True)
+    selected_assignment_count = models.IntegerField(null=True)
     completed_count = models.IntegerField(null=True)
     def __str__(self):
         """A method to get the goal from the database.

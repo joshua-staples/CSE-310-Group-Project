@@ -85,7 +85,7 @@ def dash(request):
 
     #Creating another instance of the hw session dataframe for graphing purposes
     graphable = session_data
-    graphable['time_spent'] = round(graphable['time_spent'] * 60)
+    graphable['time_spent_mins'] = round(graphable['time_spent'] * 60)
     #Altering some aspects of the new dataframe for graphing purposes 
     for i in graphable['goal_met']:
         if i > 100:
@@ -94,15 +94,17 @@ def dash(request):
             pass
     
     #Creating our bar graph "Time Spent Working in Minutes Each Day"
-    fig1 = px.bar(graphable, x='date_day', y='time_spent',
-                             labels={'date_day': 'Day','time_spent': 'Time Spent Working (min)', 'goal_met':'Goal Acheived (%)'})                       
+    fig1 = px.bar(graphable, x='date_day', y='time_spent_mins',
+                             labels={'time_spent_mins': 'Time Spent Working (min)', 'goal_met':'Session Time Used (%)', '':''})                       
     time_spent_each_day = plot({'data': fig1}, output_type='div')
 
     #Creating our scatter plot "Percentage of Goal Met Each Day" with integrated duration
     fig2 = px.scatter(graphable, x='date_day', y='goal_met',
-                                 size = 'time_spent',
-                                labels={'date_day': 'Day', 'goal_met': 'Goal Acheived (%)', 'time_spent': 'Time Spent Working (min)'})
+                                 size = 'time_spent_mins',
+                                labels={'time_spent':'Time Spent in Hours','date_day': 'Day', 'goal_met': 'Goal Acheived (%)', 'time_spent': 'Time Spent Working (min)'})
     goals_met_each_day = plot({'data': fig2}, output_type='div')
+
+    # fig3 = 
     
     
 

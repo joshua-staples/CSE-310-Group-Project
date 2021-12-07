@@ -1,4 +1,4 @@
-# CSE-310-Group-Project
+# Mindful Schedule
 A education based web app using Django for kids K-12.
 
 Register your Canvas Instructure account:

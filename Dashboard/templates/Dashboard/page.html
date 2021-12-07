@@ -24,6 +24,18 @@
       {{ goals_met_each_day }}
       {% endautoescape %}
     </div>
+    <div class="graph-widget">
+      <h2>Assignment Goal</h2>
+      {% autoescape off %}
+      {{ assignment_goals_met }}
+      {% endautoescape %}
+    </div>
+    <div class="graph-widget">
+      <h2>Productivity</h2>
+      {% autoescape off %}
+      {{ productivity }}
+      {% endautoescape %}
+    </div>
   </main>
 
 </body>

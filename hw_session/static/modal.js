@@ -1,3 +1,5 @@
+var INTERVAL_THREAD = null;
+
 window.addEventListener("load", (event) => {
     let startBtn = document.getElementById("start-btn");
     // startBtn.addEventListener("click", sendStartTime);
@@ -20,9 +22,11 @@ function showModal(){
 function hideModal(modalContainer, clickEvent){
     let firstModal = document.getElementById("session-modal");
     let secondModal = document.getElementById("start-modal");
+    let thirdModal = document.getElementById("break-modal");
     let clickInsideFirst = firstModal.contains(clickEvent.target);
     let clickInsideSecond = secondModal.contains(clickEvent.target);
-    if (!clickInsideFirst && !clickInsideSecond){
+    let clickInsideThird = thirdModal.contains(clickEvent.target);
+    if (!clickInsideFirst && !clickInsideSecond && !clickInsideThird){
         modalContainer.classList.add("hide");
     }
 }
@@ -77,7 +81,7 @@ function getStartTime(){
         "sec": start.getSeconds()
     }
     document.getElementById("id_start_time").value = JSON.stringify(startTime);
-    setInterval(() => {handleBreakInterval(startTime)}, 1000);
+    INTERVAL_THREAD = setInterval(() => {handleBreakInterval(startTime)}, 1000);
     displayEndTime();
 }
 
@@ -161,21 +165,35 @@ function handleBreakInterval(startTime){
     console.log(timeDiff);
     
     if (timeDiff.min % intervalMin == 0 && timeDiff.sec == 0){
-        window.open("/mindfullness", "_blank");
-
-        // sleep time expects milliseconds
-        function sleep (time) {
-            return new Promise((resolve) => setTimeout(resolve, time));
-        }
-        
-        // Usage!
-        sleep(3000).then(() => {
-            alert("Break time! \n\nWe opened the Mindfulness page to inspire you. Check it out! \n\nClick OK when you're ready to continue your session.")
-        });
-        
+        renderBreakPopUp();
     } 
 }
 
+function renderBreakPopUp(){
+    pauseInterval();
+    document.getElementById("break-modal").classList.remove("hide")
+    document.getElementById('modal-container').classList.add('ignore-click');
+}
+
 function takeABreak(){
-    alert("Enjoy your break! \n\nClick ok when you are ready to get started");
+    renderBreakPopUp();
+}
+
+function pauseInterval(){
+    clearInterval(INTERVAL_THREAD);
+}
+
+function resumeSession(){
+    // get the current time
+    let date = new Date();
+    let curTime = {
+        "hour": date.getHours(), 
+        "min": date.getMinutes(), 
+        "sec": date.getSeconds()
+    };
+
+    // set interval for each second with the new start time
+    INTERVAL_THREAD = setInterval(() => {handleBreakInterval(curTime)}, 1000);
+    document.getElementById("break-modal").classList.add("hide")
+    document.getElementById('modal-container').classList.remove('ignore-click');
 }

@@ -66,6 +66,7 @@ header .back-arrow::after {
   width: 90vw;
   margin: 0 auto;
   gap: 30px;
+  margin-bottom: 30px;
 }
 
 .graph-widget {
@@ -82,6 +83,12 @@ header .back-arrow::after {
   background-color: rgba(0, 95, 115, 0.4);
   border: solid #005F73 2px;
   border-radius: 25px;
+}
+
+@media screen and (min-width: 1200px) {
+  .graph-widget {
+    grid-column: span 1;
+  }
 }
 
 .graph-widget h2 {

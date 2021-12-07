@@ -200,8 +200,73 @@ body {
   transition: opacity ease .5s;
 }
 
+#break-modal {
+  z-index: 6;
+  width: 70vw;
+  max-width: 400px;
+  height: 28vh;
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 15px 30px;
+  background: #004e5f;
+  color: white;
+  position: absolute;
+  -webkit-transform: translate(50%, -165%);
+          transform: translate(50%, -165%);
+  right: 50%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  text-align: center;
+}
+
+#break-modal h2 {
+  margin-bottom: 5px;
+  font-weight: lighter;
+}
+
+#break-modal a {
+  text-decoration: none;
+  color: #EE9B00;
+}
+
+#break-modal a:hover {
+  color: white;
+}
+
+#break-modal button {
+  padding: 8px 20px;
+  font-size: 1.2em;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  color: white;
+  border: solid 1px white;
+  background-color: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  -webkit-transition: background ease .4s,  color ease .4s;
+  transition: background ease .4s,  color ease .4s;
+}
+
+#break-modal button:hover {
+  background: white;
+  color: #005F73;
+}
+
 .hide {
   opacity: 0;
   pointer-events: none;
+}
+
+.ignore-click {
+  pointer-events: none;
+}
+
+.ignore-click #break-modal {
+  pointer-events: all;
 }
 /*# sourceMappingURL=home.css.map */

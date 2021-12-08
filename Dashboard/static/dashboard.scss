@@ -63,12 +63,16 @@ header {
     width: 90vw;
     margin: 0 auto;
     gap: 30px;
+    margin-bottom: 30px;
 }
 
 .graph-widget{
     color: white;
     padding: 25px;
     grid-column: span 2;
+    @media screen and (min-width: 1200px){
+        grid-column: span 1;
+    }
     width: 100%;
     height: fit-content;
     max-height: fit-content;

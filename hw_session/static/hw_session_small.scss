@@ -95,10 +95,16 @@ body{
         display: inline;
         grid-column: 2/3;
     }
-    #id_start_time{
+
+    // Styling to hide ghost inputs
+    #id_start_time, 
+    #id_selected_assignment_count, 
+    #id_completed_count{
         display: none;
     }
-    label[for='id_start_time']{
+    label[for='id_start_time'], 
+    label[for='id_selected_assignment_count'], 
+    label[for='id_completed_count']{
         display: none;
     }
 }
@@ -169,4 +175,3 @@ body{
         color: $lightgray;
     }
 }
-

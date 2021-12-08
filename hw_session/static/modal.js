@@ -1,3 +1,5 @@
+var INTERVAL_THREAD = null;
+
 window.addEventListener("load", (event) => {
     let startBtn = document.getElementById("start-btn");
     // startBtn.addEventListener("click", sendStartTime);
@@ -20,9 +22,11 @@ function showModal(){
 function hideModal(modalContainer, clickEvent){
     let firstModal = document.getElementById("session-modal");
     let secondModal = document.getElementById("start-modal");
+    let thirdModal = document.getElementById("break-modal");
     let clickInsideFirst = firstModal.contains(clickEvent.target);
     let clickInsideSecond = secondModal.contains(clickEvent.target);
-    if (!clickInsideFirst && !clickInsideSecond){
+    let clickInsideThird = thirdModal.contains(clickEvent.target);
+    if (!clickInsideFirst && !clickInsideSecond && !clickInsideThird){
         modalContainer.classList.add("hide");
     }
 }
@@ -54,12 +58,14 @@ function checkAssignmentList(){
         let li = document.createElement('li');
         li.innerHTML = `
             <div class="assignment">
-                <input type="checkbox" name="chosenTasks[]">
+                <input class="chosenCB" type="checkbox" name="chosenTasks[]">
                 <p class="assign-name">${taskName.textContent}</p>
                 <p class="due-date">${taskDate.textContent}</p>
             </div>`;
         ul.appendChild(li);
     })
+
+    document.getElementById("id_selected_assignment_count").value = checkboxList.length;
 }
 
 /**********************************************************************
@@ -74,8 +80,8 @@ function getStartTime(){
         "min": start.getMinutes(),
         "sec": start.getSeconds()
     }
-    console.log(startTime)
     document.getElementById("id_start_time").value = JSON.stringify(startTime);
+    INTERVAL_THREAD = setInterval(() => {handleBreakInterval(startTime)}, 1000);
     displayEndTime();
 }
 
@@ -85,47 +91,52 @@ function displayEndTime(){
     console.log("hrsTo Add", hoursToAdd)
     let minsToAdd = document.getElementById("id_time_limit_mins").value;
     
-    
-    let endTimeHrs = startTime['hour'] + hoursToAdd;
-    
-    
-
-    
-    
-    // if (endTimeHrs % 12 > 0){
-    //     endTimeHrs = (endTimeHrs % 12) - 1;
-    // } 
-
-    // let endTimeMins = startTime['min'] + minsToAdd;
-    // if (endTimeMins >= 60){
-    //     endTimeMins %= 60;
-    //     endTimeHrs += 1;
-    // }
-
-    // document.getElementById("end-time").textContent = `${endTimeHrs}:${endTimeMins}`
+    let endTimeObj = timeArith(startTime, {"hour": hoursToAdd, "min": minsToAdd});
+    document.getElementById("end-time").innerHTML = endTimeObj.hour + ":" + endTimeObj.min;
 }
 
-// async function sendStartTime() {
+function timeArith(baseTime, timeDiff){
+    let baseSec = parseInt(baseTime.sec);
+    let baseMins = parseInt(baseTime.min);
+    let baseHour = parseInt(baseTime.hour);
+
+    let diffSec = parseInt(timeDiff.sec);
+    let diffMin = parseInt(timeDiff.min);
+    let diffHour = parseInt(timeDiff.hour);
+
+    let endHour = baseHour + diffHour;
+    let endMin = baseMins + diffMin;
+    let endSec = baseSec + diffSec;
+
+    // Tell if the hour is greater than 12 
+    if (endHour > 12){
+        console.log("End hour before:", endHour)
+        endHour -= 12;
+        console.log("End hour after:", endHour)
+    }
     
-//     console.log("triggered sendStartTime")
-//     let start = new Date()
-//     console.log(start)
-//     let startTime = {
-//         "day" : start.getDate(), 
-//         "hour": start.getHours(), 
-//         "min": start.getMinutes(),
-//         "sec": start.getSeconds()
-//     }
-//     console.log("Start time:", startTime)
-//     let response = await fetch('updateTime/', {
-//         method: 'POST',
-//         headers: {
-//             'content-type': 'application/json'
-//         },
-//         body: JSON.stringify(startTime)
-//     });
-//     console.log(response);
-// }
+    // Tell if we need to increment hour when we add minutes
+    if (endMin >= 60){
+        endHour += 1;
+        console.log("End min before:", endMin);
+        endMin -= 60;
+        console.log("End min after:", endMin);
+        if (endMin < 10){
+            endMin = "0" + endMin;
+        }
+    }
+
+    if (endSec >= 60){
+        endMin += 1;
+        endSec -= 60;
+        if (endSec < 10){
+            endSec = "0" + endSec;
+        }
+    }
+    
+    return {"hour": endHour, "min": endMin, "sec": endSec};
+}
+
 
 /******************************************************************
 * Logic to finish the session
@@ -134,7 +145,55 @@ function finishSession(){
     // listen for a click on the finish session button
         // Hide the running session modal 
         console.log("triggered finish session");
+
+        let finishedList = document.querySelectorAll(".chosenCB:checked");
+        document.getElementById("id_completed_count").value = finishedList.length;
+
+
         const startModal = document.getElementById("start-modal");
         startModal.classList.add("hide");
 }
 
+function handleBreakInterval(startTime){
+    let value = document.getElementById("id_break_interval").value;
+
+    let intervalMin = value * 60;
+    let date = new Date();
+    let curTime = {"hour": date.getHours(), "min": date.getMinutes(), "sec": date.getSeconds()};
+    
+    let timeDiff = timeArith(curTime, {"hour": (startTime.hour) * -1, "min": (startTime.min) * -1, "sec": (startTime.sec) * -1});
+    console.log(timeDiff);
+    
+    if (timeDiff.min % intervalMin == 0 && timeDiff.sec == 0){
+        renderBreakPopUp();
+    } 
+}
+
+function renderBreakPopUp(){
+    pauseInterval();
+    document.getElementById("break-modal").classList.remove("hide")
+    document.getElementById('modal-container').classList.add('ignore-click');
+}
+
+function takeABreak(){
+    renderBreakPopUp();
+}
+
+function pauseInterval(){
+    clearInterval(INTERVAL_THREAD);
+}
+
+function resumeSession(){
+    // get the current time
+    let date = new Date();
+    let curTime = {
+        "hour": date.getHours(), 
+        "min": date.getMinutes(), 
+        "sec": date.getSeconds()
+    };
+
+    // set interval for each second with the new start time
+    INTERVAL_THREAD = setInterval(() => {handleBreakInterval(curTime)}, 1000);
+    document.getElementById("break-modal").classList.add("hide")
+    document.getElementById('modal-container').classList.remove('ignore-click');
+}

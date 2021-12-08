@@ -1,13 +1,2 @@
 accessToken.json
 env
-<<<<<<< HEAD
-# db.sqlite3
-# .DS_Store
-=======
-<<<<<<< HEAD
-db.sqlite3
-=======
-db.sqlite3
-.DS_Store
->>>>>>> 43e57ac13add1d5dacf6f61cc383e78da13ac5b4
->>>>>>> efb674fd03c9e3027b8473155dab42deeba9f282

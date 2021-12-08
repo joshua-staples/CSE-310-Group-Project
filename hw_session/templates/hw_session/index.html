@@ -109,7 +109,17 @@
 						<h3>Session End Time</h3>
 						<p id="end-time"></p>
 					</div>
+					<button id="break-btn" onclick="takeABreak()" type="button">Take a Break</button>
 					<button id="finish-btn" onclick="finishSession()" type="submit">Finish Session</button>
+				</div>
+
+				<div id="break-modal" class="hide">
+					<h2>Ready to take a break?</h2>
+					<p>
+						Check out the <a href="/mindfullness" target="_blank">Mindulfness Page</a>
+					</p>
+					
+					<button id="finish-break-btn" type="button" onclick="resumeSession()">Continue</button>
 				</div>
 			</form>	
 		</div>

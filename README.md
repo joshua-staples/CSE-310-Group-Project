@@ -8,7 +8,7 @@ Our goal is to help students be more mindful about how they do their homework. T
 
 ## Getting Started
 1. Download Required Software
-2. Set up virtual environment. [Tutorial](https://docs.python.org/3/library/venv.html)
+2. Create virtual environment named "env". [Tutorial](https://docs.python.org/3/library/venv.html)
 3. Create accessToken.json file inside ```hw_session/static```
    1. Contents: ```{"token" : "Your token here", "user_id" : "Your ID here"}```
 4. Create Canvas API token.

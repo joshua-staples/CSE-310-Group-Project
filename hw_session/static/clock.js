@@ -1,8 +1,8 @@
+/*
+creates a clock that updates every half a second. 
+*/
 function timeSet(){
-    /*
-    creates a clock that updates every half a second. 
-    */
-   
+  
     const twoDigit = (number) => {
         if (number < 10){
             number = "0" + number

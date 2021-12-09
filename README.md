@@ -7,7 +7,6 @@ Our goal is to help students be more mindful about how they do their homework. T
 
 
 ## Getting Started
----
 1. Download Required Software
 2. Set up virtual environment. [Tutorial](https://docs.python.org/3/library/venv.html)
 3. Create accessToken.json file inside ```hw_session/static```
@@ -26,11 +25,9 @@ Our goal is to help students be more mindful about how they do their homework. T
 - Django (v3.2.8) ```pip install django```
 - Canvasapi (v2.2.0) ```pip install canvasapi```
 - Plotly (v5.4.0) ```pip install plotly```
-_instructions for setting up canvas api token and id_
 
 
 ## Future Plans
----
 - Custom Assignments
 - Dynamic Mindfulness Page
 - Login/Authentication with Canvas
@@ -38,7 +35,6 @@ _instructions for setting up canvas api token and id_
 - Local storage for assignment
 
 ## Our Team
----
 ### Contributors
 - Reece Poulsen [LinkedIn](https://www.linkedin.com/in/reece-poulsen), [GitHub](https://github.com/Reecepoulsen)
 - Joshua Staples [LinkedIn](https://www.linkedin.com/in/joshua-s-81100986/), [GitHub](https://github.com/joshua-staples)

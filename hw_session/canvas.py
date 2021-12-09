@@ -176,7 +176,7 @@ class Canvas_Cl():
             # print('---------------------------------------------')
             #Get the due date of the assignment to manipulate it
             reformed_datetime = str(i.due_date)
-            print(reformed_datetime)
+            # print(reformed_datetime)
             assignment = str(i.name)
             # print(assignment)
 

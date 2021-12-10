@@ -23,9 +23,7 @@ from Dashboard import views as dashboard_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hw_session_views.home, name='home'),
-    # path('hw_session/home', hw_session_views.home, name="home"),
     path('mindfullness/', mindfullness_views.home, name='mindfullness_home'),
     path('dashboard/', dashboard_views.dash, name = "dashboard"),
-    # path('updateTime/', hw_session_views.update_start_time, name="updateTime")
 
 ]

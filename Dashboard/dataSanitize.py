@@ -10,6 +10,8 @@ current_mins = str(datetime.now().minute)
 full_time = round(int(current_hour) + (int(current_mins)/60),2)
 
 def sanitize():
+    """Manipulates the data store in the hw_session database to be graphable. Formats some time variables and
+    performs some basic arithmatic to show differences in start and end times."""
   
     #Setting up the dataframe we are going to use
 
@@ -28,7 +30,6 @@ def sanitize():
     
 
     session_data = pd.DataFrame(list(Session_Data.objects.all().values()))
-    # print(session_data.columns)
 
     #Get the time the hw session ended
 

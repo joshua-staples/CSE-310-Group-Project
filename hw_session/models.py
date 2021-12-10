@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 
 INTERVAL_CHOICES =  [
-    (.05, "3mins"),
     ( .25, "15mins"),
     ( .5, "30mins"),
     ( .75, "45mins"),
@@ -22,7 +21,7 @@ class Session_Data(models.Model):
     start_time = models.CharField(max_length=200, null=True)
     finish_time = models.DateTimeField(auto_now_add=True, null=True)
     # finish_time = models.DateTimeField(null=True)
-    break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.05, null=True)
+    break_interval = models.FloatField(max_length=30, choices=INTERVAL_CHOICES, default=.25, null=True)
     goal_accomplished = models.BooleanField(null=True)
     selected_assignment_count = models.IntegerField(null=True)
     completed_count = models.IntegerField(null=True)

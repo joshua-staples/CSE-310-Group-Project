@@ -19,13 +19,21 @@ Our goal is to help students be more mindful about how they do their homework. T
    2. Paste User ID into JSON file from step 3.
 
 
-### Required Software
+### Development Environment
 - Python (v3.9+) [Download Python](https://www.python.org/downloads/)
 - Django-admin (v3.2.8) ```pip install django-admin```
 - Django (v3.2.8) ```pip install django```
 - Canvasapi (v2.2.0) ```pip install canvasapi```
 - Plotly (v5.4.0) ```pip install plotly```
 
+## Our Team
+### Contributors
+- Reece Poulsen [LinkedIn](https://www.linkedin.com/in/reece-poulsen), [GitHub](https://github.com/Reecepoulsen)
+- Joshua Staples [LinkedIn](https://www.linkedin.com/in/joshua-s-81100986/), [GitHub](https://github.com/joshua-staples)
+- Christian Martinez [LinkedIn](www.linkedin.com/in/christian-martinez-28868a222), [GitHub](https://github.com/FinestTurtle)
+- Bryton Peterson [LinkedIn](https://www.linkedin.com/in/bryton-petersen-a44b32223/), [GitHub](https://github.com/BrytonPetersen)
+### Contact
+- Message us on LinkedIn
 
 ## Future Plans
 - Custom Assignments
@@ -34,11 +42,7 @@ Our goal is to help students be more mindful about how they do their homework. T
 - Cloud database in place of SQLite
 - Local storage for assignment
 
-## Our Team
-### Contributors
-- Reece Poulsen [LinkedIn](https://www.linkedin.com/in/reece-poulsen), [GitHub](https://github.com/Reecepoulsen)
-- Joshua Staples [LinkedIn](https://www.linkedin.com/in/joshua-s-81100986/), [GitHub](https://github.com/joshua-staples)
-- Christian Martinez [LinkedIn](), [GitHub]()
-- Bryton Peterson [LinkedIn](), [GitHub]()
-### Contact
-- Message us on LinkedIn
+## Useful Websites
+- [Django Documentation](https://docs.djangoproject.com/en/4.0/)
+- [Canvas Rest API Documentation](https://canvas.instructure.com/doc/api/courses.html)
+- [Canvas Documentation](https://canvasapi.readthedocs.io/en/stable/course-ref.html)

@@ -1,6 +1,7 @@
 from django import forms
 from . import models        
 
+#Creates a HTML form for the models. 
 class Sessionform(forms.ModelForm):
     class Meta:
         model = models.Session_Data

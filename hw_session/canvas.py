@@ -173,12 +173,9 @@ class Canvas_Cl():
             dict : the reformatted hw_data dictionary
         """
         for i in hw_data:
-            # print('---------------------------------------------')
             #Get the due date of the assignment to manipulate it
             reformed_datetime = str(i.due_date)
-            # print(reformed_datetime)
             assignment = str(i.name)
-            # print(assignment)
 
             #Parse the due date
             if ' ' in reformed_datetime:
@@ -205,17 +202,14 @@ class Canvas_Cl():
             date_due = date_due.split('-')
             parsed_year, parsed_month, parsed_day = int(date_due[0]), int(date_due[1]), (int(date_due[2])-1)
             # datetime_dueDate = datetime(parsed_year, parsed_month, parsed_day)
-            # print(datetime_dueDate)
 
             dayNumber = calendar.weekday(parsed_year, parsed_month, parsed_day)
             days =["Mon", "Tue", "Wed", "Thu",
                                 "Fri", "Sat", "Sun"]
             months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            # print(parsed_month)
             final_month = (months[parsed_month -1])
             final_day = (days[dayNumber])
             i.due_date = final_day
-            # print(str(i.due_date))
         return hw_data
 
 

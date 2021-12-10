@@ -5,6 +5,12 @@ import plotly.express as px
 from .dataSanitize import *
 
 def dash(request):
+    """Creates a dashboard that will display graphs based on users hw_session data. This includes ammount
+    of time spent on session, percentage of goals completed, and a heatmap of most productive times
+    a user works on homework.
+    
+    returns:
+    HTTP render : points to the dashboard html page"""
 
     graphable = sanitize()
 

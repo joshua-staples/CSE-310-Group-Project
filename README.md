@@ -17,6 +17,7 @@ Our goal is to help students be more mindful about how they do their homework. T
 5. Copy unique User ID from Canvas.
    1. Navigate to any currently enrolled course --> People --> Click on your Own Name --> Copy last six digit number of the url after the last "/".
    2. Paste User ID into JSON file from step 3.
+6. Run server with ```python3 manage.py runserver```
 
 
 ### Development Environment
@@ -25,6 +26,7 @@ Our goal is to help students be more mindful about how they do their homework. T
 - Django (v3.2.8) ```pip install django```
 - Canvasapi (v2.2.0) ```pip install canvasapi```
 - Plotly (v5.4.0) ```pip install plotly```
+- Pandas (v1.4.1) ```pip install pandas```
 
 ## Our Team
 ### Contributors
